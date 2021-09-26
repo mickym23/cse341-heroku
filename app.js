@@ -1,5 +1,6 @@
 const http = require('http');
 const { listenerCount } = require('process');
+const PORT = process.env.PORT || 3000;
 
 // Setting a global array to store user names
 let users = ["User 1", "User 2", "User 3", "User 4"];
@@ -67,4 +68,4 @@ const route = serverHandler;
 const server = http.createServer(route);
 
 // Let server listen on Port 3000
-server.listen(3000);
+server.listen(PORT);
