@@ -10,14 +10,14 @@
    <h1>
       Books Display
    </h1>
-<a href="/views/add-product.ejs">Add Product</a>
+<a href="/add-product">Add Product</a>
 
    <br><br>
-
+   <% if (books.length > 0)  { %>
      <% for (let book of books) { %>
          <li><%= book %></li>
-    <% } %>
-
-   <form method="post" action=""></form>
+    <% } } else { %>
+         <p>No Books to Display</p>
+         <% } %>
 </body>
 </html>
