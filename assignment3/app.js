@@ -1,17 +1,19 @@
 const express = require('express');
+const PORT = process.env.PORT || 3000;
 
 const path = require('path');
 
 const app = express();
+app.set('view engine', 'ejs');
 
 app.use(express.static(path.join(__dirname, 'css')));
 
 app.get('/users', (req, res, next) => {
-   res.sendFile(path.join(__dirname, 'views', 'users.html'));
+   res.render('add-product')
 });
 
 app.get('/', (req, res, next) => {
-   res.sendFile(path.join(__dirname, 'views', 'home.html'));
+   res.render('home');
 });
 
-app.listen(3000);
+app.listen(PORT);
