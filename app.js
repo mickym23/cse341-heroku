@@ -12,7 +12,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const books = ['Book 1','Book 2', 'Book 3', 'Book 4'];
 
 app.get('/add-product', (req, res, next) => {
-   res.render('add-product');
+   res.render('add-product', {
+      pageTitle: 'Add-Product | Node',
+   });
 });
 
 app.post('/add-item', (req, res, next) => {
@@ -23,6 +25,7 @@ app.post('/add-item', (req, res, next) => {
 
 app.get('/', (req, res, next) => {
    res.render('home',{
+      pageTitle: 'Booklist | Node',
       books:books
    });
 });
