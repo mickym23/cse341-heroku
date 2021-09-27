@@ -8,7 +8,7 @@ const app = express();
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static('css'));
+app.use(express.static(path.join(__dirname, 'css')));
 
 const books = ['Book 1','Book 2', 'Book 3', 'Book 4'];
 
