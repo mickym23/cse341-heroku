@@ -23,7 +23,16 @@ const navList = [{
 }];
 
 
-const books = ['Book 1', 'Book 2', 'Book 3', 'Book 4'];
+// Test Book Object for Dev
+// {
+//    'title': 'Book 1',
+//    'genre': 'Fantasy',
+//    'description': 'Great book about dragons.',
+//    'rating': 5,
+//    'price': 4.99
+// }
+
+const books = [];
 
 app.get('/add-product', (req, res, next) => {
    res.render('add-product', {
@@ -33,9 +42,15 @@ app.get('/add-product', (req, res, next) => {
 });
 
 app.post('/add-item', (req, res, next) => {
-   console.log(req.body.title);
-   books.push(req.body.title);
-   res.redirect('/');
+   const bookObj = {
+       'title': req.body.title,
+       'genre': req.body.genre,
+       'description': req.body.description,
+       'rating': req.body.rating,
+       'price':req.body.price
+   };
+   books.push(bookObj);
+   res.redirect('/display');
 });
 
 app.get('/display', (req, res, next) => {

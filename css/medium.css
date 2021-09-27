@@ -1,3 +1,10 @@
 @media only screen and (min-width: 600px) {
-   
+   .navUL li {
+      padding: 0;
+   }
+
+   .addForm {
+      margin: 0 auto;
+      max-width: 75%;
+   }
 }

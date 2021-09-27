@@ -8,7 +8,13 @@
    <ul class="cards">
    <% if (books.length > 0)  { %>
      <% for (let book of books) { %>
-         <li class="bookCards"><%= book.trim() %></li>
+      <div class="card">
+         <li class="bookCards">Title: <%= book.title %></li>
+         <li class="bookCards">Genre: <%= book.genre %></li>
+         <li class="bookCards">Description: <%= book.description %></li>
+         <li class="bookCards">Rating: <%= book.rating %></li>
+         <li class="bookCards">Price: $<%= book.price %></li>
+      </div>
     <% }} %>
    </ul>
      <% if (!(books.length > 0)) { %>

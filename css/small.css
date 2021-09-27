@@ -3,9 +3,14 @@
 
 /* General Template CSS */
 *, .html {
+   box-sizing: border-box;
    margin: 0;
    padding: 0;
-   width: 100%;
+   max-width: 100%;
+}
+
+*, *:before, *:after{
+ box-sizing: inherit;
 }
 
 main {
@@ -43,12 +48,23 @@ header {
    text-decoration: none;
    list-style-type: none;
    display: flex;
+   align-items: center;
    text-align: center;
-   background-color: #beeeff;
+   flex: 1 0 100%;
+   justify-content: center;
+   background-color: #beefef;
+   padding: 1% 2% 1% 2%;
 }
 
 .navUL li {
-   padding: 1% 0% 1% 0%;
+   padding: 1% 2% 1% 2%;
+   flex: 1 0 100px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.navUL li:last-child {
+   margin-right: 0px;
 }
 
 .navUL a, .navUL a:visited{
@@ -91,7 +107,15 @@ header {
 
 .cards {
    display: grid;
-   grid-template-columns: auto auto;
+   grid-template-columns: 1fr 1fr;
+   row-gap: 15px;
+   column-gap: 15px;
+   padding-left: 2%;
+   padding-right: 2%;
+}
+
+.card {
+   border: 2px black solid;
 }
 
 .bookCards {
@@ -120,12 +144,19 @@ header {
 }
 
 .addProdForm {
-   text-align: center;
+   display: block;
 }
 
-.addProdForm input {
+.addProdForm label {
+   display: inline-block;
+   width: 200px;
+   text-align: left;
+   padding-top:1.5%;
+}
+
+.addProdForm input, .addProdForm textarea, .addProdForm select{
    font-family: inherit;
-   text-align: center;
+   text-align: left;
    width: 40%;
 }
 
@@ -133,6 +164,7 @@ header {
    font-family: inherit;
    width: 20%;
 }
+
 
 /* Footer Styles */
 footer {
