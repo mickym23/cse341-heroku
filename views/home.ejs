@@ -1,7 +1,7 @@
 <%- include('includes/head.ejs'); %>
 <%- include('includes/nav.ejs'); %>
-<body>
-   <h3>Books Display</h3>
+
+   <h3 class="bookHeading">Books Display</h3>
 
    <br><br>
    <% if (books.length > 0)  { %>
@@ -10,4 +10,5 @@
     <% } } else { %>
          <p>No Books to Display</p> 
          <% }; %>
+
 <%- include ('includes/footer.ejs'); %>

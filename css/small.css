@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Righteous&family=Sigmar+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&family=Josefin+Sans:wght@300&family=Merienda&display=swap');
+
+*, .html {
+   margin: 0;
+   padding: 0;
+   width: 100%;
+}
+
+header {
+   font-family: "Righteous", Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+   letter-spacing: 2px;
+   text-align: center;
+   background-color: #172a3a;
+   padding: 2% 0% 2% 0%;
+}
+
+.mainHeadText {
+   font-family: inherit;
+   text-align: inherit;
+   color: #beefef;
+}
+
+.secondHeadText {
+   font-family: inherit;
+   color: #beefef;
+   text-align: inherit;
+}
+
+.navUL {
+   text-decoration: none;
+   list-style-type: none;
+   display: flex;
+   text-align: center;
+   background-color: #beeeff;
+}
+
+.navUL li {
+   padding: 1% 0% 1% 0%;
+}
+
+.navUL a, .navUL a:visited{
+   font-family: "Righteous", Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+   text-decoration: none;
+   color: #172a3a;
+   font-size: 110%;
+}
+
+main {
+   font-family: "Merienda", Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+   padding: 0;
+   margin: 0 auto;
+   background-color: lightgrey;
+}
+
+.bookHeading {
+   padding-top: 3%;
+   padding-bottom: 2%;
+   font-size: 140%;
+   text-align: center;
+}
+
+
+
+
+
+
+
+footer {
+   text-align: center;
+   font-family: "DM Serif Display", Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+   letter-spacing: 1px;
+   background-color: #172a3a;
+   color: whitesmoke;
+   padding: 3% 0% 3% 0%;
+}

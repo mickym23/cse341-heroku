@@ -1,6 +1,7 @@
 <nav>
-   <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/add-product">Add product</a></li>
+   <ul class="navUL">   
+         <% for (let list of navList) { %>
+         <li><a href="<%= list.href %>"><%= list.linkName %></a></li>
+      <% } %>
    </ul>
 </nav>
