@@ -136,31 +136,31 @@ header {
 }
 
 /*Add Product Styles */
-.add-productHeading {
+.add-productHeading, .del-productHeading {
    padding-top: 3%;
    padding-bottom: 2%;
    font-size: 140%;
    text-align: center;
 }
 
-.addProdForm {
+.addProdForm, .delForm {
    display: block;
 }
 
-.addProdForm label {
+.addProdForm label, .delForm label {
    display: inline-block;
    width: 200px;
    text-align: left;
    padding-top:1.5%;
 }
 
-.addProdForm input, .addProdForm textarea, .addProdForm select{
+.addProdForm input, .addProdForm textarea, .addProdForm select, .delProdForm input, .delProdForm select{
    font-family: inherit;
    text-align: left;
    width: 40%;
 }
 
-.addProdForm button {
+.addProdForm button, .delProdForm button {
    font-family: inherit;
    width: 20%;
 }

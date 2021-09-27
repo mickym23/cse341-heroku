@@ -1,0 +1,19 @@
+<%- include('includes/head.ejs') %>
+<%- include('includes/nav.ejs') %>
+   <h3 class="del-productHeading">Delete Product</h3>
+
+   <div class="delForm">
+     <form class="delProdForm" action="/del-item" method="POST">
+      <label for"title">Select Book to Delete: </label>
+      <select name="title">
+        <% for (let book of books) { %>
+          <option value="<%= book.title %>"><%= book.title %></option>
+          <% bookGenre = book.genre; %>
+        <% } %>
+       </select><br>
+      <button type="submit">Delete Book</button>
+  </form>
+  </div>
+  
+
+  <%- include('includes/footer.ejs') %>

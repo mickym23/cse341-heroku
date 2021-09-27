@@ -20,17 +20,21 @@ const navList = [{
 },{
    'linkName': 'Add Product',
    'href': '/add-product'
+},{
+   'linkName':'Delete Product',
+   'href':'del-product'
 }];
 
 
 // Test Book Object for Dev
-// {
+// [{
 //    'title': 'Book 1',
 //    'genre': 'Fantasy',
 //    'description': 'Great book about dragons.',
 //    'rating': 5,
 //    'price': 4.99
-// }
+// }]
+
 
 const books = [];
 
@@ -38,6 +42,14 @@ app.get('/add-product', (req, res, next) => {
    res.render('add-product', {
       pageTitle: 'Add-Product | Node',
       navList:navList
+   });
+});
+
+app.get('/del-product', (req, res, next) => {
+   res.render('del-product', {
+      pageTitle: 'Delete-Product | Node',
+      navList:navList,
+      books:books
    });
 });
 
@@ -50,6 +62,17 @@ app.post('/add-item', (req, res, next) => {
        'price':req.body.price
    };
    books.push(bookObj);
+   res.redirect('/display');
+});
+
+app.post('/del-item', (req, res, next) => {
+   const title = req.body.title;
+
+   for (let i = 0; i < books.length; i++) {
+      if (books[i].title === title) {
+         books.splice(i,1);
+      }
+   }
    res.redirect('/display');
 });
 
