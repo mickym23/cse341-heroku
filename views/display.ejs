@@ -1,0 +1,19 @@
+<%- include('includes/head.ejs'); %>
+<%- include('includes/nav.ejs'); %>
+
+   <h3 class="bookHeading">Books Display</h3>
+
+   <br>
+   <div class="cardSection">
+   <ul class="cards">
+   <% if (books.length > 0)  { %>
+     <% for (let book of books) { %>
+         <li class="bookCards"><%= book.trim() %></li>
+    <% }} %>
+   </ul>
+     <% if (!(books.length > 0)) { %>
+     <img class="notFoundDog" src="terrier.png" alt="Image of Terrier Dog">
+     <p class="notFound">Oops! There are currently no books to display.</p> 
+     <% }; %>
+   </div>
+<%- include ('includes/footer.ejs'); %>

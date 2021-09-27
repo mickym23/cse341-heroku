@@ -1,8 +1,9 @@
 <%- include('includes/head.ejs') %>
 <%- include('includes/nav.ejs') %>
-   <h3>Add Product</h3>
+   <h3 class="add-productHeading">Add Product</h3>
 
-   <form action="/add-item" method="POST">
+   <form class="addProdForm" action="/add-item" method="POST">
+      <label for"title">Book Title: </label>
       <input type="text" name="title">
       <button type="submit">Add Book</button>
   </form>

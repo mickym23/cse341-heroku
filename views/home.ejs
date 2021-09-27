@@ -1,14 +1,6 @@
 <%- include('includes/head.ejs'); %>
 <%- include('includes/nav.ejs'); %>
-
-   <h3 class="bookHeading">Books Display</h3>
-
-   <br><br>
-   <% if (books.length > 0)  { %>
-     <% for (let book of books) { %>
-         <li><%= book %></li>
-    <% } } else { %>
-         <p>No Books to Display</p> 
-         <% }; %>
-
+  <img class="homeBanner" src="bookbanner.jpg" alt="Book Library Image">
+   <h3 class="homeHeading">NodeJS Home</h3>
+   <p class="homeNotice">Watch this space for upcoming events! Feel Free to check out our other content!</p>
 <%- include ('includes/footer.ejs'); %>
