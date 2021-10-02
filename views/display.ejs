@@ -1,25 +1,25 @@
 <%- include('includes/head.ejs'); %>
 <%- include('includes/nav.ejs'); %>
 
-   <h3 class="bookHeading">Books Display</h3>
+   <h3 class="bookHeading">Fruits Display</h3>
 
    <br>
    <div class="cardSection">
    <ul class="cards">
-   <% if (books.length > 0)  { %>
-     <% for (let book of books) { %>
+   <% if (fruits.length > 0)  { %>
+     <% for (let fruit of fruits) { %>
       <div class="card">
-         <li class="bookCards">Title: <%= book.title %></li>
-         <li class="bookCards">Genre: <%= book.genre %></li>
-         <li class="bookCards">Description: <%= book.description %></li>
-         <li class="bookCards">Rating: <%= book.rating %></li>
-         <li class="bookCards">Price: $<%= book.price %></li>
+         <li class="bookCards">Name: <%= fruit.name %></li>
+         <img class="bookCards" src="<%=fruit.imageUrl%>" alt="<%=fruit.title%>">
+         <li class="bookCards">Description: <%= fruit.description %></li>
+         <li class="bookCards">Rating: <%= fruit.origin %></li>
+         <li class="bookCards">Price: $<%= fruit.price %></li>
       </div>
     <% }} %>
    </ul>
-     <% if (!(books.length > 0)) { %>
+     <% if (!(fruits.length > 0)) { %>
      <img class="notFoundDog" src="terrier.png" alt="Image of Terrier Dog">
-     <p class="notFound">Oops! There are currently no books to display.</p> 
+     <p class="notFound">Oops! There are currently no fruits to display.</p> 
      <% }; %>
    </div>
 <%- include ('includes/footer.ejs'); %>
