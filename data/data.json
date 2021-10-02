@@ -2,7 +2,7 @@
    {
    "id":"1",
    "name":"Starking Apple",
-   "imageUrl":"./img/fruit/starking_apple.jpg",
+   "imageUrl":"starking_apple.jpg",
    "description":"Fresh, Crisp, and Tangy",
    "origin":"U.S.A",
    "price":"2.99"
@@ -10,7 +10,7 @@
    {
       "id":"2",
       "name":"Williams Bananas",
-      "imageUrl":"./img/fruit/banana.jpg",
+      "imageUrl":"banana.jpg",
       "description":"Bright and Yellow with Sweet, Soft, Flesh",
       "origin":"Australia",
       "price":"3.99"
@@ -18,7 +18,7 @@
    {
       "id":"3",
       "name":"Triple Crown Blackberries",
-      "imageUrl":"../img/fruit/blackberries.jpg",
+      "imageUrl":"blackberries.jpg",
       "description":"Vibrant and Sweet Summer Berries",
       "origin":"U.S.A.",
       "price":"2.99"
