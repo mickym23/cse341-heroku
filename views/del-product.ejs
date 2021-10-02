@@ -7,10 +7,11 @@
       <label for"name">Select Fruit to Delete: </label>
       <select name="name">
         <% for (let fruit of fruits) { %>
-          <option value="<%=fruit%>"><%=fruit.name %> @ $<%= fruit.price %></option>
+          <option value="<%=fruit.name%>"><%=fruit.name %> @ $<%= fruit.price %></option>
         <% } %>
        </select><br>
       <button type="submit">Delete Fruit</button>
+      <input type="hidden" name="fruits" value="<%= JSON.parse(JSON.stringify(fruits)); %>"/>
       
   </form>
   </div>

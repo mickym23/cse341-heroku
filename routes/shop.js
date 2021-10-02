@@ -3,7 +3,6 @@ const path = require('path');
 const express = require('express');
 
 const shopController = require('../controllers/shop');
-// const { runInContext } = require('vm');
 
 const router = express.Router();
 

@@ -45,4 +45,10 @@ module.exports = class Fruit {
         cb(fruit);
       });
     }
+
+    static updateFile(fruits) {
+      fs.writeFile(p, JSON.stringify(fruits, null, 4), err => {
+        console.log(err);
+      });
+    };
 };

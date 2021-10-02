@@ -1,3 +1,4 @@
+const { updateFile } = require('../models/fruits');
 const Fruit = require('../models/fruits');
 
 const navList = [{
@@ -43,7 +44,14 @@ exports.getDelFruits = (req, res, next) => {
 };
 
 exports.postDeleteProduct = (req, res, next) => {
-   
-
-   res.redirect('/');
+  const name = req.body.name; 
+  Fruit.fetchAll(fruits => {
+  for (let fruit of fruits) {
+      if (fruit.name === name) {
+        fruits.splice(fruits.indexOf(fruit), 1);
+      }
+  }
+  updateFile(fruits);
+});
+  res.redirect('/');
 }
