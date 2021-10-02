@@ -1,33 +1,20 @@
 <%- include('includes/head.ejs') %>
 <%- include('includes/nav.ejs') %>
-   <h3 class="add-productHeading">Add Product</h3>
+   <h3 class="add-productHeading">Add Fruit</h3>
 
    <div class="addForm">
      <form class="addProdForm" action="/add-item" method="POST">
-      <label for"title">Book Title: </label>
-      <input type="text" name="title"/><br>
-      <label for"genre">Choose Book Genre: </label>
-      <select name="genre" id="genre">
-         <option value="Fiction">Fiction</option>
-         <option value="Non-Fiction">Non-Fiction</option>
-         <option value="Education">Education</option>
-         <option value="Fantasy">Fantasy</option>
-         <option value="Manga">Manga</option>
-       </select><br>
-      <label for"description">Book Description: </label>
+      <label for"name">Fruit Name: </label>
+      <input type="text" name="name"/><br>
+      <label for"imageUrl">Image URL: </label>
+      <input type="text" name="imageUrl"/><br>
+      <label for"description">Fruit Description: </label>
       <textarea name="description" rows="1" cols="4"></textarea><br>
-      <label for"rating">Book Rating: </label>
-      <input class="slider" type="range" name="rating" min="1" max="5" list="steplist">
-      <datalist id="steplist">
-         <option>1</option>
-         <option>2</option>
-         <option>3</option>
-         <option>4</option>
-         <option>5</option>
-     </datalist><br>
-      <label for"price">Book Price: </label>
+      <label for"origin">Country of Origin: </label>
+      <input type="text" name="origin"><br>
+      <label for"price">Fruit Price: </label>
       <input type="number" name="price" min="0.00" step="any"/><br><br>
-      <button type="submit">Add Book</button>
+      <button type="submit">Add Fruit</button>
   </form>
   </div>
   

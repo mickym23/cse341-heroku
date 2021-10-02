@@ -9,11 +9,10 @@
    <% if (fruits.length > 0)  { %>
      <% for (let fruit of fruits) { %>
       <div class="card">
-         <li class="bookCards">Name: <%= fruit.name %></li>
+       
          <img class="bookCards" src="<%=fruit.imageUrl%>" alt="<%=fruit.title%>">
-         <li class="bookCards">Description: <%= fruit.description %></li>
-         <li class="bookCards">Rating: <%= fruit.origin %></li>
-         <li class="bookCards">Price: $<%= fruit.price %></li>
+         <li class="bookCards"><%= fruit.name %></li>
+         <li class="bookCards">$<%= fruit.price %></li>
       </div>
     <% }} %>
    </ul>

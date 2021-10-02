@@ -2,4 +2,8 @@
    .addForm {
       max-width: 65%;
    }
+
+   .cards img {
+      width: 50%;
+   }
 }

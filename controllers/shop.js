@@ -4,7 +4,7 @@ const navList = [{
    'linkName': 'Home',
    'href': '/'
 },{
-   'linkName': 'Book Display',
+   'linkName': 'All Fruits',
    'href': '/display'
 },{
    'linkName': 'Add Product',

@@ -18,8 +18,8 @@ const getFruitsFromFile = cb => {
 };
 
 module.exports = class Fruit {
-  constructor(title, imageUrl, description, origin, price) {
-    this.title = title;
+  constructor(name, imageUrl, description, origin, price) {
+    this.name = name;
     this.imageUrl = imageUrl;
     this.description = description;
     this.origin = origin;

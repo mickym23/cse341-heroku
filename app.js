@@ -16,7 +16,6 @@ app.use(express.static(path.join(__dirname, 'img/fruit')));
 
 
 
-
 // app.get('/add-product', (req, res, next) => {
 //    res.render('add-product', {
 //       pageTitle: 'Add-Product | Node',
@@ -57,6 +56,9 @@ app.use(express.static(path.join(__dirname, 'img/fruit')));
 
 const shopRoutes = require('./routes/shop');
 app.use(shopRoutes);
+
+const adminRoutes = require('./routes/admin');
+app.use(adminRoutes);
 // app.get('/display', (req, res, next) => {
 //    res.render('display',{
 //       pageTitle: 'Booklist | Node',
