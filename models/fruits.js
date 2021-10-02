@@ -12,6 +12,7 @@ const getFruitsFromFile = cb => {
     if (err) {
       cb([]);
     } else {
+    // console.log(JSON.parse(fileContent));
       cb(JSON.parse(fileContent));
     }
   });
@@ -42,7 +43,8 @@ module.exports = class Fruit {
   static findById(id, cb) {
       getFruitsFromFile(fruits => {
         const fruit = fruits.find(f => f.id === id);
-        cb(fruit);
+     //   console.log(fruit);
+        return cb(fruit);
       });
     }
 

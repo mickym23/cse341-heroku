@@ -44,34 +44,34 @@ header {
 }
 
 /* Navigation Styles */
+
+
+nav {
+	margin: 0 auto;
+	max-width: 100%;
+   background-color: #3a3a3a;
+}
+
 .navUL {
-   text-decoration: none;
    list-style-type: none;
-   display: flex;
-   align-items: center;
-   text-align: center;
-   flex: 1 0 100%;
-   justify-content: center;
+   margin: 0;
+   padding: 0;
    background-color: #beefef;
-   padding: 1% 2% 1% 2%;
 }
 
-.navUL li {
-   padding: 1% 2% 1% 2%;
-   flex: 1 0 100px;
-    margin-right: 10px;
-    text-align: center;
+nav ul li {
+   display: inline;
+   
 }
 
-.navUL li:last-child {
-   margin-right: 0px;
-}
-
-.navUL a, .navUL a:visited{
-   font-family: "Righteous", Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-   text-decoration: none;
+nav ul li a, nav ul li a:visited {
+   font-family: "Righteous", Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;   color: white;
+   display: block;
    color: #172a3a;
-   font-size: 110%;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  border: 1px solid black;
 }
 
 /* Home Page Styles */ 
@@ -105,6 +105,11 @@ header {
    text-align: center;
 }
 
+.cardLinks, .cardLinks:visited {
+   text-decoration: none;
+   color: #172a3a
+}
+
 .cards {
    display: grid;
    grid-template-columns: 1fr 1fr;
@@ -129,6 +134,10 @@ header {
    padding: 1% 0% 1% 0%;
    font-size: 110%;
    font-weight: 700;
+}
+
+.detailsImg {
+   max-width: 50%;
 }
 
 .notFoundDog {

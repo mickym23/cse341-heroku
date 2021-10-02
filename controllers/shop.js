@@ -12,9 +12,10 @@ exports.getFruits = (req, res, next) => {
  exports.getFruit = (req, res, next) => {
    const fruitId = req.params.fruitId;
    Fruit.findById(fruitId, fruit => {
+     console.log(fruit);
      res.render('details', {
       pageTitle: 'Details | Node',
-       fruit:fruit,
+       detailedFruit: fruit
      });
    });
  };

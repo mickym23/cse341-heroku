@@ -3,8 +3,50 @@
       padding: 0;
    }
 
+   
+nav {
+   margin: 0 auto;
+	max-width: 100%;
+	background-color: #3a3a3a;
+   padding: 0;
+}
+.navUL {
+   text-decoration: none;
+   list-style-type: none;
+   display: flex;
+   align-items: center;
+   text-align: center;
+   flex: 1 0 100%;
+   justify-content: center;
+   background-color: #beefef;
+   padding: 1% 2% 1% 2%;
+}
+
+.navUL li {
+   padding: 1% 2% 1% 2%;
+   flex: 1 0 100px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.navUL li:last-child {
+   margin-right: 0px;
+}
+
+.navUL a, .navUL a:visited{
+   font-family: "Righteous", Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+   text-decoration: none;
+   color: #172a3a;
+   font-size: 110%;
+   border: none;
+}
+
    .cards {
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+   }
+
+   .detailsImg {
+      max-width: 40%;
    }
 
    .addForm {

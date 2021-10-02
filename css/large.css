@@ -6,4 +6,12 @@
    .cards img {
       width: 50%;
    }
+
+   .detailsImg {
+      max-width: 30%;
+   }
+
+   .cards {
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+   }
 }
