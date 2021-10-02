@@ -14,9 +14,6 @@ const navList = [{
    'href':'del-product'
 }];
 
-
-const books = [];
-
 exports.getFruits = (req, res, next) => {
    Fruit.fetchAll(fruits => {
      res.render('display', {
