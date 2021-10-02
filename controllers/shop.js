@@ -32,7 +32,7 @@ exports.getFruits = (req, res, next) => {
    Fruit.findById(fruitId, fruit => {
      res.render('details', {
        fruit:fruit,
-       pageTitle: fruit.title + '| Node',
+       pageTitle: 'Fruit',
        navList:navList
      });
    });
