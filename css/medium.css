@@ -3,6 +3,10 @@
       padding: 0;
    }
 
+   .cards {
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+   }
+
    .addForm {
       margin: 0 auto;
       max-width: 75%;

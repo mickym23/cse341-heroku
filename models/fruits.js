@@ -30,8 +30,7 @@ module.exports = class Fruit {
     this.id = Math.random().toString();
     getFruitsFromFile(fruits => {
       fruits.push(this);
-      fs.writeFile(p, JSON.stringify(fruits), err => {
-        console.log(err);
+      fs.writeFile(p, JSON.stringify(fruits, null, 4), err => {
       });
     });
   }
@@ -39,7 +38,8 @@ module.exports = class Fruit {
   static fetchAll(cb) {
     getFruitsFromFile(cb);
   }
-    static findById(id, cb) {
+  
+  static findById(id, cb) {
       getFruitsFromFile(fruits => {
         const fruit = fruits.find(f => f.id === id);
         cb(fruit);
@@ -48,7 +48,6 @@ module.exports = class Fruit {
 
     static updateFile(fruits) {
       fs.writeFile(p, JSON.stringify(fruits, null, 4), err => {
-        console.log(err);
       });
     };
 };

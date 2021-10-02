@@ -30,7 +30,7 @@ exports.postAddProduct = (req, res, next) => {
   const price = req.body.price;
   const fruit = new Fruit(name, imageUrl, description, origin, price);
   fruit.save();
-  res.redirect('/');
+  res.redirect('/display');
 };
 
 exports.getDelFruits = (req, res, next) => {

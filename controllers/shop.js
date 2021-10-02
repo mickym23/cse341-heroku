@@ -28,8 +28,8 @@ exports.getFruits = (req, res, next) => {
    const fruitId = req.params.fruitId;
    Fruit.findById(fruitId, fruit => {
      res.render('details', {
+      pageTitle: 'Details | Node',
        fruit:fruit,
-       pageTitle: 'Fruit',
        navList:navList
      });
    });
