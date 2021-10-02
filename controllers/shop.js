@@ -1,25 +1,10 @@
 const Fruit = require('../models/fruits');
 
-const navList = [{
-   'linkName': 'Home',
-   'href': '/'
-},{
-   'linkName': 'All Fruits',
-   'href': '/display'
-},{
-   'linkName': 'Add Product',
-   'href': '/add-product'
-},{
-   'linkName':'Delete Product',
-   'href':'del-product'
-}];
-
 exports.getFruits = (req, res, next) => {
    Fruit.fetchAll(fruits => {
      res.render('display', {
        fruits: fruits,
        pageTitle: 'Fruits | Node',
-       navList:navList
      });
    });
  };
@@ -30,17 +15,15 @@ exports.getFruits = (req, res, next) => {
      res.render('details', {
       pageTitle: 'Details | Node',
        fruit:fruit,
-       navList:navList
      });
    });
- }
+ };
  
  exports.getIndex = (req, res, next) => {
    Fruit.fetchAll(fruits => {
      res.render('home', {
        fruits: fruits,
        pageTitle: 'Home | Node',
-       navList:navList
      });
    });
  };

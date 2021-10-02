@@ -1,24 +1,10 @@
 const { updateFile } = require('../models/fruits');
 const Fruit = require('../models/fruits');
 
-const navList = [{
-   'linkName': 'Home',
-   'href': '/'
-},{
-   'linkName': 'All Fruits',
-   'href': '/display'
-},{
-   'linkName': 'Add Fruit',
-   'href': '/add-product'
-},{
-   'linkName':'Delete Product',
-   'href':'del-product'
-}];
-
 exports.getAddProduct = (req, res, next) => {
   res.render('add-product', {
     pageTitle: 'Add Product | Node',
-    navList: navList
+  
   });
 };
 
@@ -38,7 +24,7 @@ exports.getDelFruits = (req, res, next) => {
     res.render('del-product', {
       fruits: fruits,
       pageTitle: 'Delete Fruits | Node',
-      navList:navList
+
     });
   });
 };
