@@ -1,0 +1,25 @@
+<%- include('includes/head.ejs') %>
+</head>
+
+<body>
+    <%- include('includes/nav.ejs') %>
+    <h1>My Cart</h1>
+    <main>
+        <% if (fruits.length > 0) { %> 
+            <ul>
+                <% fruits.forEach(f => { %>
+                    <li>
+                        <p><%=f.fruitData.name %> (<%=f.qty%>)</p>
+                        <form action="/cart-del-item" method="post">
+                            <button type="submit">Delete</button>
+                            <input type="hidden" name="fruitId" value=<%= f.fruitData.id %>>
+                        </form>
+                    </li>
+                <% }); %>
+            </ul>
+        <%  } else { %>
+            <h1>No Products in Cart</h1>
+        <% } %> 
+    </main>
+
+<%- include('includes/footer.ejs') %>

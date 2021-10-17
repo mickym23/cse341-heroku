@@ -1,7 +1,24 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const cors = require('cors') // Place this with other requires (like 'path' and 'express')
 
+// const corsOptions = {
+//     origin: "https://cse341-mikhail.herokuapp.com/",
+//     optionsSuccessStatus: 200
+// };
+// app.use(cors(corsOptions));
+
+// const options = {
+//     useUnifiedTopology: true,
+//     useNewUrlParser: true,
+//     useCreateIndex: true,
+//     useFindAndModify: false,
+//     family: 4
+// };
+
+// const MONGODB_URL = process.env.MONGODB_URL || "mongodb+srv://mikhail:Porkchops1@cse341cluster-3dwlw.mongodb.net/test?retryWrites=true&w=majority";
+                        
 const PORT = process.env.PORT || 3000;
 
 const app = express();

@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const Cart = require('./cart');
 
 const p = path.join(
   path.dirname(process.mainModule.filename),
@@ -19,7 +20,8 @@ const getFruitsFromFile = cb => {
 };
 
 module.exports = class Fruit {
-  constructor(name, imageUrl, description, origin, price) {
+  constructor(id, name, imageUrl, description, origin, price) {
+    this.id = id;
     this.name = name;
     this.imageUrl = imageUrl;
     this.description = description;
@@ -28,11 +30,31 @@ module.exports = class Fruit {
   }
 
   save() {
-    this.id = Math.random().toString();
     getFruitsFromFile(fruits => {
+      if (this.id) {
+        const existingProductIndex = fruits.findIndex(fruit => fruit.id === this.id);
+        const updatedProducts = [...fruits];
+        updatedProducts[existingProductIndex] = this;
+        fs.writeFile(p, JSON.stringify(updatedProducts, null, 4), err => {
+        });
+      }else {
+      this.id = Math.random().toString();
       fruits.push(this);
       fs.writeFile(p, JSON.stringify(fruits, null, 4), err => {
       });
+    }
+    });
+  }
+
+  static deleteById(id) {
+    getFruitsFromFile(fruits => {
+      const fruit = fruits.find(fruit => fruit.id === id);
+      const updatedFruits = fruits.filter(fruit => fruit.id !== id);
+      fs.writeFile(p, JSON.stringify(updatedFruits), err => {
+        if (!err) {
+          Cart.deleteProduct(id, fruit.price);
+        }
+      })
     });
   }
 

@@ -8,12 +8,32 @@
    <ul class="cards">
    <% if (fruits.length > 0)  { %>
      <% for (let fruit of fruits) { %>
-      <a class="cardLinks" href="/display/<%= fruit.id %>">
+      <!-- <a class="cardLinks" href="/display/<%= fruit.id %>"> -->
       <div class="card">
+     
          <img class="bookCards" src="<%=fruit.imageUrl%>" alt="<%=fruit.title%>">
          <li class="bookCards"><%= fruit.name %></li>
          <li class="bookCards">$<%= fruit.price %></li>
-      </div></a>
+   
+         <div class="grid-container">
+          <% if (admin) { %>
+          <a class="btn editButton" href="/edit-product/<%= fruit.id %>?edit=true">Edit</a>
+          <form action="/del-item" method="post">
+            <button type="submit" class="btn">Delete</button>
+            <input type="hidden" name="fruitId" value="<%= fruit.id %>">
+          </form>
+         <% } else { %>
+          <a href="/display/<%= fruit.id %>">Details</a>
+          <form action="/cart" method="post"> %>
+          <button class="btn" type="submit">Add to Cart</button>
+          <input type="hidden" name="fruitId" value="<%= fruit.id %>">
+          </form>
+          <% } %> 
+     
+      </div>
+      </div>  
+
+     
 
     <% }} %>
    </ul>

@@ -174,7 +174,14 @@ nav ul li a, nav ul li a:visited {
    width: 20%;
 }
 
+.grid-container {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+}
 
+.editButton {
+   display: block;
+}
 /* Footer Styles */
 footer {
    text-align: center;

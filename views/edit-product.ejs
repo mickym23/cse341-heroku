@@ -1,0 +1,25 @@
+<%- include('includes/head.ejs') %>
+<%- include('includes/nav.ejs') %>
+   <h3 class="add-productHeading">Add Fruit</h3>
+   <div class="addForm">
+     <form class="addProdForm" action="/<% if (editing) { %>edit-item<%} else { %>add-item<%} %>" method="POST">
+      <label for"name">Fruit Name: </label>
+      <input type="text" name="name" value="<% if (editing) { %><%= fruit.name%><% } %>"><br>
+      <label for"imageUrl">Image URL: </label>
+      <input type="text" name="imageUrl" value="<% if (editing) { %><%= fruit.imageUrl%><% } %>"/><br>
+      <label for"description">Fruit Description: </label>
+      <textarea name="description" rows="1" cols="4"><% if (editing) { %><%=fruit.description%><% } %></textarea><br>
+      <label for"origin">Country of Origin: </label>
+      <input type="text" name="origin" value="<% if (editing) { %><%= fruit.origin%><% } %>"><br>
+      <label for"price">Fruit Price: </label>
+      <input type="number" name="price" min="0.00" step="any" value="<% if (editing) { %><%= fruit.price%><% } %>"/><br><br>
+
+      <% if (editing) { %> 
+        <input type="hidden" value="<%= fruit.id %>" name="fruitId">
+      <% } %> 
+      <button type="submit"> <% if (editing) { %>Update Fruit <% } else { %>Add Fruit<% } %></button>
+  </form>
+  </div>
+  
+
+  <%- include('includes/footer.ejs') %>
