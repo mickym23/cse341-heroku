@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors') // Place this with other requires (like 'path' and 'express')
+const mongoConnect = require('./util/database').mongoConnect;
 
 // const corsOptions = {
 //     origin: "https://cse341-mikhail.herokuapp.com/",
@@ -30,6 +31,16 @@ app.use(express.static(path.join(__dirname, 'css')));
 app.use(express.static(path.join(__dirname, 'img')));
 app.use(express.static(path.join(__dirname, 'img/fruit')));
 
+const User = require('./models/user');
+app.use((req, res, next) => {
+   User.findById('616cf732ac58b88a5c35dd1c')
+   .then(user => {
+      req.user = new User(user.username, user.email, user.cart, user._id);
+      next();
+   })
+   .catch(err => console.log(err));
+});
+
 const shopRoutes = require('./routes/shop');
 app.use(shopRoutes);
 
@@ -39,4 +50,9 @@ app.use(adminRoutes);
 const errorController = require('./controllers/error');
 app.use(errorController.get404);
 
-app.listen(PORT);
+mongoConnect(() => {
+   // if () {
+
+   // }
+   app.listen(PORT);
+});

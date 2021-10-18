@@ -15,7 +15,7 @@
       <input type="number" name="price" min="0.00" step="any" value="<% if (editing) { %><%= fruit.price%><% } %>"/><br><br>
 
       <% if (editing) { %> 
-        <input type="hidden" value="<%= fruit.id %>" name="fruitId">
+        <input type="hidden" value="<%= fruit._id %>" name="fruitId">
       <% } %> 
       <button type="submit"> <% if (editing) { %>Update Fruit <% } else { %>Add Fruit<% } %></button>
   </form>

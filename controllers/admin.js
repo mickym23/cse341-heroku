@@ -1,5 +1,3 @@
-
-const { updateFile } = require('../models/fruits');
 const Fruit = require('../models/fruits');
 
 exports.getAddProduct = (req, res, next) => {
@@ -15,9 +13,16 @@ exports.postAddProduct = (req, res, next) => {
   const description = req.body.description;
   const origin = req.body.origin;
   const price = req.body.price;
-  const fruit = new Fruit(null, name, imageUrl, description, origin, price);
-  fruit.save();
-  res.redirect('/display');
+  const fruit = new Fruit(name, imageUrl, description, origin, price, null, req.user._id);
+  fruit
+    .save()
+    .then(result => {
+      console.log('Created Fruit Item');
+      res.redirect('/admin-products')
+    })
+    .catch(err => {
+      console.log(err);
+    })
 };
 
 exports.getEditProduct = (req, res, next) => {
@@ -27,7 +32,8 @@ exports.getEditProduct = (req, res, next) => {
     res.redirect('/');
   }
   const fruitId = req.params.fruitId;
-  Fruit.findById(fruitId, fruit => {
+  Fruit.findById(fruitId)
+  .then(fruit => {
     if (!fruit) {
       return res.redirect('/');
     }
@@ -39,14 +45,35 @@ exports.getEditProduct = (req, res, next) => {
 })
 };
 
+exports.postUpdatedProduct = (req, res, next) => {
+  const fruitId = req.body.fruitId
+  const name = req.body.name;
+  const imageUrl = req.body.imageUrl;
+  const description = req.body.description;
+  const origin = req.body.origin;
+  const price  = req.body.price;
+
+  const fruit = new Fruit(name, imageUrl, description, origin, price, fruitId)
+
+  fruit
+  .save()
+  .then(result => {
+    console.log('Product is Updated.');
+    res.redirect('/admin-products');
+  })
+  .catch(err => console.log(err));
+}
+
 exports.getAdminFruits = (req, res, next) => {
-  Fruit.fetchAll(fruits => {
+  Fruit.fetchAll()
+  .then(fruits => {
     res.render('display', {
       fruits: fruits,
       pageTitle: 'Fruits Admin | Node',
       admin: true
     });
-  });
+  })
+  .catch(err => console.log(err));
 };
 
 
@@ -59,22 +86,15 @@ exports.getDelFruits = (req, res, next) => {
   });
 };
 
-exports.postUpdatedProduct = (req, res, next) => {
-  const fruitId = req.body.fruitId
-  const name = req.body.name;
-  const imageUrl = req.body.imageUrl;
-  const description = req.body.description;
-  const origin = req.body.origin;
-  const price  = req.body.price;
-
-  const updatedProduct = new Fruit(fruitId, name, imageUrl, description, origin, price);
-
-  updatedProduct.save();
-  res.redirect('/admin-products');
-}
 
 exports.postDeleteProduct = (req, res, next) => {
   const fruitId = req.body.fruitId;
-  Fruit.deleteById(fruitId);
-  res.redirect('/admin-products');
+  Fruit.deleteById(fruitId)
+  .then(() => {
+    console.log('Controller: Product Deleted.');
+    res.redirect('/admin-products');
+  })
+  .catch(err => {
+    console.log(err);
+  })
 }

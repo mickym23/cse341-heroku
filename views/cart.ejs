@@ -9,10 +9,10 @@
             <ul>
                 <% fruits.forEach(f => { %>
                     <li>
-                        <p><%=f.fruitData.name %> (<%=f.qty%>)</p>
+                        <p><%=f.name %> (<%=f.quantity%>)</p>
                         <form action="/cart-del-item" method="post">
                             <button type="submit">Delete</button>
-                            <input type="hidden" name="fruitId" value=<%= f.fruitData.id %>>
+                            <input type="hidden" name="fruitId" value=<%= f._id %>>
                         </form>
                     </li>
                 <% }); %>
