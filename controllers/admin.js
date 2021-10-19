@@ -19,7 +19,7 @@ exports.postAddProduct = (req, res, next) => {
     description: description,
     origin: origin, 
     price: price,
-    userId: req.user
+    userId: req.user._id
   });
   fruit
     .save()
