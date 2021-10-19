@@ -13,7 +13,14 @@ exports.postAddProduct = (req, res, next) => {
   const description = req.body.description;
   const origin = req.body.origin;
   const price = req.body.price;
-  const fruit = new Fruit(name, imageUrl, description, origin, price, null, req.user._id);
+  const fruit = new Fruit({
+    name: name,
+    imageUrl: imageUrl, 
+    description: description,
+    origin: origin, 
+    price: price,
+    userId: req.user
+  });
   fruit
     .save()
     .then(result => {
@@ -53,10 +60,15 @@ exports.postUpdatedProduct = (req, res, next) => {
   const origin = req.body.origin;
   const price  = req.body.price;
 
-  const fruit = new Fruit(name, imageUrl, description, origin, price, fruitId)
-
-  fruit
-  .save()
+  Fruit.findById(fruitId)
+  .then(fruit => {
+    fruit.name = name;
+    fruit.imageUrl = imageUrl;
+    fruit.description = description;
+    fruit.origin = origin;
+    fruit.price = price;
+    return fruit.save()
+  })
   .then(result => {
     console.log('Product is Updated.');
     res.redirect('/admin-products');
@@ -65,8 +77,11 @@ exports.postUpdatedProduct = (req, res, next) => {
 }
 
 exports.getAdminFruits = (req, res, next) => {
-  Fruit.fetchAll()
+  Fruit.find()
+  // .select('name price -_id')
+  // .populate('userId', 'name')
   .then(fruits => {
+    console.log(fruits);
     res.render('display', {
       fruits: fruits,
       pageTitle: 'Fruits Admin | Node',
@@ -89,7 +104,7 @@ exports.getDelFruits = (req, res, next) => {
 
 exports.postDeleteProduct = (req, res, next) => {
   const fruitId = req.body.fruitId;
-  Fruit.deleteById(fruitId)
+  Fruit.findByIdAndRemove(fruitId)
   .then(() => {
     console.log('Controller: Product Deleted.');
     res.redirect('/admin-products');

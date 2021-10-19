@@ -1,83 +1,93 @@
-const getDb = require('../util/database').getDb;
-const mongodb = require('mongodb');
+const mongoose = require('mongoose');
 
-const ObjectId = mongodb.ObjectId;
-class User {
-   constructor (username, email, cart, id) {
-      this.username = username;
-      this.email = email;
-      this.cart = cart;
-      this._id = id;
+const Schema = mongoose.Schema;
+
+const userSchema = new Schema({
+   name: {
+      type: String,
+      required: true
+   },
+   email: {
+      type: String,
+      required: true
+   },
+   cart: {
+      items: [{
+         fruitId: { 
+            type: Schema.Types.ObjectId,
+            ref: 'Fruit',
+            required: true
+         }, 
+         quantity: {
+            type: Number, 
+            required: true
+         }}],
    }
+});
 
-   save() {
-      const db = getDb();
-      return db
-      .collection('users')
-      .insertOne(this)
-   }
+userSchema.methods.addToCart = function(fruit) {
+   const cartFruitIndex = this.cart.items.findIndex(cf => {
+      return cf.fruitId.toString() === fruit._id.toString();
+   });
 
-   addToCart(fruit) {
-      const cartFruitIndex = this.cart.items.findIndex(cf => {
-         return cf.fruitId.toString() === fruit._id.toString();
-      });
+   let newQuantity = 1;
+   const updatedCartItems = [...this.cart.items];
 
-      let newQuantity = 1;
-      const updatedCartItems = [...this.cart.items];
-
-      if (cartFruitIndex >= 0) {
-         newQuantity = this.cart.items[cartFruitIndex].quantity + 1;
-         updatedCartItems[cartFruitIndex].quantity = newQuantity;
-      } else {
-         updatedCartItems.push({fruitId: new ObjectId(fruit._id), quantity: newQuantity});
-      }
-
-      const updatedCart = {
-         items: updatedCartItems
-      };
-
-      const db = getDb();
-      return db
-      .collection('users')
-      .updateOne(
-        { _id: new ObjectId(this._id) },
-        { $set: { cart: updatedCart } }
-      );
-   }
-
-   getCart() {
-      const db =getDb();
-      const fruitIds = this.cart.items.map(i => {
-         return i.fruitId;
-      });
-
-      return db
-      .collection('fruits')
-      .find({_id: {
-         $in: fruitIds
-      }}).toArray()
-      .then(fruits => {
-         return fruits.map(f => {
-            return {...f, quantity: this.cart.items.find(i => {
-               return i.fruitId.toString() === f._id.toString();
-            }).quantity
-         };
-         });
+   if (cartFruitIndex >= 0) {
+      newQuantity = this.cart.items[cartFruitIndex].quantity + 1;
+      updatedCartItems[cartFruitIndex].quantity = newQuantity;
+   } else {
+      updatedCartItems.push({
+         fruitId: fruit._id,
+         quantity: newQuantity
       });
    }
 
-   static findById(userId) {
-      const db =getDb();
-      return db
-      .collection('users')
-      .findOne({_id: new ObjectId(userId)})
-      .then(user => { 
-        // console.log(user)
-         return user;
-      }).catch(err => {
-         console.log(err);
-      });
-   }
+   const updatedCart = {
+      items: updatedCartItems
+   };
+
+   this.cart = updatedCart;
+   return this.save();     
 }
 
-module.exports = User;
+userSchema.methods.removeFromCart = function (fruitId) {
+   const updatedCartItems = this.cart.items.filter(item => {
+      return item.fruitId.toString() !== fruitId.toString();
+   });
+   this.cart.items = updatedCartItems;
+   return this.save();
+}
+
+userSchema.methods.clearCart = function () {
+   this.cart = {
+      items: []
+   };
+   return this.save();
+}
+
+module.exports = mongoose.model('User', userSchema);
+
+//    getOrders() {
+//       const db= getDb();
+//       return db
+//       .collection('orders')
+//       .find({'user._id': new ObjectId(this._id)})
+//       .toArray();
+//    }
+
+//    static findById(userId) {
+//       const db =getDb();
+//       return db
+//       .collection('users')
+//       .findOne({_id: new ObjectId(userId)})
+//       .then(user => { 
+//         // console.log(user)
+//          return user;
+//       }).catch(err => {
+//          console.log(err);
+//       });
+//    }
+// }
+
+// module.exports = User;

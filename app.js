@@ -1,8 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const mongoose = require('mongoose');
 const cors = require('cors') // Place this with other requires (like 'path' and 'express')
-const mongoConnect = require('./util/database').mongoConnect;
+//const mongoConnect = require('./util/database').mongoConnect;
 
 // const corsOptions = {
 //     origin: "https://cse341-mikhail.herokuapp.com/",
@@ -33,9 +34,9 @@ app.use(express.static(path.join(__dirname, 'img/fruit')));
 
 const User = require('./models/user');
 app.use((req, res, next) => {
-   User.findById('616cf732ac58b88a5c35dd1c')
+   User.findById('616e1954aee925b44b6ce3ee')
    .then(user => {
-      req.user = new User(user.username, user.email, user.cart, user._id);
+      req.user = user;
       next();
    })
    .catch(err => console.log(err));
@@ -50,9 +51,33 @@ app.use(adminRoutes);
 const errorController = require('./controllers/error');
 app.use(errorController.get404);
 
-mongoConnect(() => {
-   // if () {
+// mongoConnect(() => {
+//    // if () {
 
-   // }
-   app.listen(PORT);
-});
+//    // }
+//    app.listen(PORT);
+// });
+
+mongoose.connect('mongodb+srv://mikhail-node:Porkchops1@cluster0.mszib.mongodb.net/shop?authSource=admin&replicaSet=atlas-vg9xcm-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true')
+.then(result => {
+
+   User.findOne().then(user => {
+      if(!user) {
+         const user = new User({
+            name: 'Mikhail',
+            email: 'test@gmail.com',
+            cart: {
+               items: []
+            }
+         });
+         user.save(); 
+      }
+   })
+   
+   console.log('Connected!')
+   app.listen(3000);
+  
+})
+.catch(err => {
+   console.log(err);
+})

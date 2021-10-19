@@ -9,14 +9,17 @@
             <ul>
                 <% fruits.forEach(f => { %>
                     <li>
-                        <p><%=f.name %> (<%=f.quantity%>)</p>
+                        <p><%=f.fruitId.name %> (<%=f.quantity%>)</p>
                         <form action="/cart-del-item" method="post">
                             <button type="submit">Delete</button>
-                            <input type="hidden" name="fruitId" value=<%= f._id %>>
+                            <input type="hidden" name="fruitId" value="<%= f.fruitId._id %>">
                         </form>
                     </li>
                 <% }); %>
             </ul>
+            <form action="/post-order" method="POST">
+                <button type="submit" class="btn">Order Now!</button>
+            </form>
         <%  } else { %>
             <h1>No Products in Cart</h1>
         <% } %> 

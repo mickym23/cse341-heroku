@@ -1,9 +1,10 @@
 const Fruit = require('../models/fruits');
-const Cart = require('../models/cart');
+const Order = require('../models/order');
 
 exports.getFruits = (req, res, next) => {
-   Fruit.fetchAll()
+   Fruit.find()
    .then(fruits => {
+     console.log(fruits);
      res.render('display', {
        fruits: fruits,
        pageTitle: 'Fruits | Node',
@@ -30,7 +31,7 @@ exports.getFruits = (req, res, next) => {
  };
  
  exports.getIndex = (req, res, next) => {
-   Fruit.fetchAll()
+   Fruit.find()
    .then(fruits => {
      res.render('home', {
        fruits: fruits,
@@ -44,11 +45,13 @@ exports.getFruits = (req, res, next) => {
  
  exports.getCart = (req, res, next) => {
    req.user
-   .getCart()
-   .then(fruits => {
+   .populate('cart.items.fruitId')
+   //.execPopulate()
+     .then(user => {
+      const fruits = user.cart.items;
       res.render('cart', {
         path: '/cart',
-        pageTitle: 'Your Cart',
+        pageTitle: 'Cart | Node',
         fruits: fruits
       });
      })
@@ -61,28 +64,66 @@ exports.getFruits = (req, res, next) => {
    Fruit.findById(fruitId)
     .then(fruit => {
       req.user.addToCart(fruit);
-      res.redirect('/cart');
+      
     })
     .then(result => {
-      console.log(result);
+      res.redirect('/cart');
     });
  };
 
  exports.postCartDelete = (req, res, next) => {
   const fruitId = req.body.fruitId;
-  Fruit.findById(fruitId, fruit => {
-    Cart.deleteProduct(fruitId, fruit.price);
-    res.redirect('/cart');
-  });
+  req.user
+    .removeFromCart(fruitId)
+    .then(result => {
+      res.redirect('/cart');
+    }) 
+    .catch(err => console.log(err));
  };
- 
- exports.getOrders = (req, res, next) => {
-   res.render('shop/orders', {
-     path: '/orders',
-     pageTitle: 'Your Orders'
-   });
- };
- 
+
+exports.getOrders = (req, res, next) => {
+  Order.find({
+    "user.userId": req.user._id
+  })
+    .then(orders => {
+      res.render('order', {
+        pageTitle: 'Order | Node',
+        orders: orders
+      });
+    })
+    .catch(err => console.log(err));
+};
+
+exports.postOrder = (req, res, next) => {
+  req.user
+    .populate('cart.items.fruitId')
+    //.execPopulate()
+    .then(user => {
+      const fruits = user.cart.items.map(i => {
+        return {
+          quantity: i.quantity,
+          fruit: { ...i.fruitId._doc }
+        }
+      });
+
+      const order = new Order({
+        user: {
+          name: req.user.name,
+          userId: req.user
+        },
+        fruits: fruits
+      });
+      order.save();
+    })
+    .then(result => {
+      return req.user.clearCart();
+  })
+    .then(result => {
+      res.redirect('/orders');
+    })
+    .catch(err => console.log(err));
+};
+
 //  exports.getCheckout = (req, res, next) => {
 //    res.render('shop/checkout', {
 //      path: '/checkout',
