@@ -19,11 +19,11 @@ nav {
    flex: 1 0 100%;
    justify-content: center;
    background-color: #beefef;
-   padding: 1% 2% 1% 2%;
+   padding: 0% 1% 0% 1%;
 }
 
 .navUL li {
-   padding: 1% 2% 1% 2%;
+   padding: 0% 1% 0% 1%;
    flex: 1 0 100px;
     margin-right: 10px;
     text-align: center;
@@ -37,12 +37,20 @@ nav {
    font-family: "Righteous", Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
    text-decoration: none;
    color: #172a3a;
-   font-size: 110%;
+   font-size: 125%;
    border: none;
 }
 
    .cards {
       grid-template-columns: 1fr 1fr 1fr;
+   }
+
+   .card {
+      height: 390px;
+   }
+
+   button.btn {
+      margin-right: 5%;
    }
 
    .detailsImg {
@@ -53,4 +61,18 @@ nav {
       margin: 0 auto;
       max-width: 75%;
    }
+
+   .orderButton {
+      padding: 1%;
+   }
+
+   .orders {
+      justify-items: center;
+   }
+
+   .order-container {
+      width: 50%;
+   }
+
+  
 }

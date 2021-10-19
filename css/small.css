@@ -72,6 +72,7 @@ nav ul li a, nav ul li a:visited {
   padding: 14px 16px;
   text-decoration: none;
   border: 1px solid black;
+  font-size: 115%;
 }
 
 /* Home Page Styles */ 
@@ -115,18 +116,59 @@ nav ul li a, nav ul li a:visited {
    grid-template-columns: 1fr 1fr;
    row-gap: 15px;
    column-gap: 15px;
-   padding-left: 2%;
-   padding-right: 2%;
+   padding-left: 5%;
+   padding-right: 5%;
+   column-gap: 25px;
+}
+
+.cards img {
+   margin-top: 10%;
+   width: 70%;
+   height: 50%;
+   object-fit: fill;
+   overflow: hidden;
+   border: 5px #172a3a inset;
 }
 
 .card {
    border: 2px black solid;
+   box-shadow: 1px 1px 4.5px 4.5px #172a3a;
+   height: 360px;
 }
 
 .bookCards {
-   list-style-type: none;
-   padding: 2% 0% 2% 0%; 
+   list-style-type: none; 
 }
+
+.cards h4 {
+   font-weight: 800;
+   font-size: 120%;
+   height: 70px;
+}
+
+.cards h5 {
+   font-weight: 800;
+   font-size: 150%;
+   padding-bottom: 3%;
+}
+
+.btn {
+   display: inline;
+   padding: 0rem 0.2rem;
+   text-decoration: none;
+   font: inherit;
+   font-family: "DM Serif Display", Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+   border: 1px solid black;
+   color: #172a3a;
+   background: lightskyblue;
+   border-radius: 3px;
+   cursor: pointer;
+ }
+
+ a.btn {
+    width: 75%;
+    margin-left: 8%;
+ }
 
 .notFound {
    font-family: inherit;
@@ -182,6 +224,95 @@ nav ul li a, nav ul li a:visited {
 .editButton {
    display: block;
 }
+
+.order-items-grid {
+   display: grid;
+   grid-template-columns: 1fr;
+   list-style-type: none;
+   row-gap: 25px;
+   justify-items: center;
+}
+
+.cart-main h1 {
+   padding: 3%;
+}
+
+.cart-main {
+   padding-left: 5%;
+   padding-right: 5%;
+   font-family: "DM Serif Display", Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+   font-size: 120%;
+}
+
+.order-items {
+   border: 5px double black;
+   padding: 1%;
+   width: 50%;
+}
+
+.cartDeleteButton {
+   border: 1px darkred;
+   background-color: darkred;
+   color: white;
+   padding: 2%;
+   margin-top: 2%;
+}
+
+.orderButton {
+   background-color: lightgreen;
+   padding: 2%;
+   margin-top: 2%;
+}
+
+.order-main {
+   padding: 0% 5% 0% 5%;
+   font-family: "DM Serif Display", Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+}
+
+.order-main h1 {
+   padding: 2%;
+}
+
+.order-list {
+   list-style-type: circle;
+   list-style-position: inside;
+   text-align: left;
+   padding-left: 4%;
+   font-family: inherit;
+}
+
+.order-container {
+   border: 2px black solid;
+   list-style-type: none;
+   font-family: inherit;
+   font-size:120%;
+}
+
+.orders {
+   display: grid;
+   grid-template-columns: 1fr;
+   row-gap: 10px;
+}
+
+
+
+.orders h2 {
+   font-size: 120%;
+} 
+
+.shoppingCartIcon {
+   position: absolute;
+   top: 50px;
+   right:15px;
+   width: 30px;
+}
+
+.cartOrderLink {
+   text-decoration: none;
+   color: darkblue;
+}
+
 /* Footer Styles */
 footer {
    text-align: center;

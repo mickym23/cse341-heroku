@@ -3,22 +3,24 @@
 
 <body>
     <%- include('includes/nav.ejs') %>
-    <h1>My Cart</h1>
-    <main>
+    <main class="cart-main">
+        <h1>My Cart</h1>
+        <a class="cartOrderLink" href="/orders">View Previous Orders</a>
         <% if (fruits.length > 0) { %> 
-            <ul>
+            <ul class="order-items-grid">
                 <% fruits.forEach(f => { %>
-                    <li>
-                        <p><%=f.fruitId.name %> (<%=f.quantity%>)</p>
+                    <li class="order-items">
+                        <p><%=f.fruitId.name %></p>
+                        <p>Amount: <%=f.quantity%></p>
                         <form action="/cart-del-item" method="post">
-                            <button type="submit">Delete</button>
+                            <button class="cartDeleteButton" type="submit">Delete</button>
                             <input type="hidden" name="fruitId" value="<%= f.fruitId._id %>">
                         </form>
                     </li>
                 <% }); %>
             </ul>
             <form action="/post-order" method="POST">
-                <button type="submit" class="btn">Order Now!</button>
+                <button type="submit" class="orderButton">Order Now!</button>
             </form>
         <%  } else { %>
             <h1>No Products in Cart</h1>

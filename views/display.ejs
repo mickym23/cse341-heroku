@@ -12,8 +12,8 @@
       <div class="card">
      
          <img class="bookCards" src="<%=fruit.imageUrl%>" alt="<%=fruit.title%>">
-         <li class="bookCards"><%= fruit.name %></li>
-         <li class="bookCards">$<%= fruit.price %></li>
+         <li class="bookCards"><h4><%= fruit.name %></h4></li>
+         <li class="bookCards"><h5>$<%= fruit.price %></h5></li>
    
          <div class="grid-container">
           <% if (admin) { %>
@@ -23,7 +23,7 @@
             <input type="hidden" name="fruitId" value="<%= fruit._id %>">
           </form>
          <% } else { %>
-          <a href="/display/<%= fruit._id %>">Details</a>
+          <a class="btn editButton" href="/display/<%= fruit._id %>">Details</a>
           <form action="/cart" method="post"> %>
           <button class="btn" type="submit">Add to Cart</button>
           <input type="hidden" name="fruitId" value="<%= fruit._id %>">

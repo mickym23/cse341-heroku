@@ -3,19 +3,19 @@
 
 <body>
     <%- include('includes/nav.ejs') %>
-    <h1>My Cart</h1>
 
-<main>
+<main class="order-main">
+    <h1>My Orders</h1>
    <% if (orders.length <= 0) { %>
-       <h1>Nothing there!</h1>
+       <h2>Nothing there!</h2>
    <% } else { %>
        <ul class="orders">
            <% orders.forEach(order => { %>
-               <li class="orders__item">
-                   <h1>Order - # <%= order._id %></h1>
-                   <ul class="orders__products">
+               <li class="order-container">
+                   <h2>Order - # <%= order._id %></h2>
+                   <ul class="order-list">
                        <% order.fruits.forEach(f => { %>
-                           <li class="orders__products-item"><%= f.fruit.name %> (<%= f.quantity %>)</li>
+                           <li><%= f.fruit.name %> (<%= f.quantity %>)</li>
                        <% }); %>
                    </ul>
                </li>
