@@ -1,8 +1,23 @@
-<nav>
+<nav class="nav-bar">
    <ul class="navUL">   
          <li><a href="/">Home</a></li>
          <li><a href="/display">All Fruits</a></li>
+
+      <% if (isAuthenticated) { %> 
          <li><a href="/add-product">Add Fruit</a></li>
          <li><a href="/admin-products">Fruits Admin</a></li>
+      <% } %> 
+   </ul>
+   <ul class="navUL">
+         <% if (!isAuthenticated) { %>
+         <li><a href="/login">Login</a></li>
+         <% } %> 
+         <% if (isAuthenticated) { %> 
+         <li>
+            <form action="/logout" method="post">
+               <button type="submit">Logout</button>
+            </form>
+         </li>
+         <% } %> 
    </ul>
 </nav>

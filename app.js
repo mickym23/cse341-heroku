@@ -4,15 +4,23 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors') // Place this with other requires (like 'path' and 'express')
+const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
 
 // Required Models
 const User = require('./models/user');
 
+
+const MONGODB_URI = 'mongodb+srv://mikhail-node:Porkchops1@cluster0.mszib.mongodb.net/shop?authSource=admin&replicaSet=atlas-vg9xcm-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true';
 // MongoDB Connection string and Config Var
-const MONGODB_URL = process.env.MONGODB_URL || "mongodb+srv://mikhail-node:Porkchops1@cluster0.mszib.mongodb.net/shop?authSource=admin&replicaSet=atlas-vg9xcm-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
+const MONGODB_URL = process.env.MONGODB_URL || MONGODB_URI;
 
 // Create Express server
 const app = express();
+const store = new MongoDBStore({
+   uri: MONGODB_URI,
+   collection: 'sessions'
+});
 
 // Using EJS template
 app.set('view engine', 'ejs');
@@ -28,15 +36,20 @@ const corsOptions = {
    optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
+app.use(session({
+   secret: 'my secret',
+   resave: false,
+   saveUninitialized: false,
+   store: store
+}));
 
-// User Middleware (finding hard-coded user)
 app.use((req, res, next) => {
-   User.findById('616e1954aee925b44b6ce3ee')
-   .then(user => {
-      req.user = user;
-      next();
-   })
-   .catch(err => console.log(err));
+   User.findById(req.session.user)
+      .then(user => {
+         req.user = user;
+         next();
+      })
+      .catch(err => console.log(err));
 });
 
 const options = {
@@ -56,13 +69,16 @@ app.use(shopRoutes);
 const adminRoutes = require('./routes/admin');
 app.use(adminRoutes);
 
+const authRoutes = require('./routes/auth');
+app.use(authRoutes);
+
 // Error 404
 const errorController = require('./controllers/error');
 app.use(errorController.get404);
 
 // Connect to db via Mongoose
 mongoose.connect(
-   MONGODB_URL, options
+   MONGODB_URI, options
 )
 .then(result => {
    User.findOne().then(user => {

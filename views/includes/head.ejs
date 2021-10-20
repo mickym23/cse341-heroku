@@ -13,5 +13,9 @@
 </head>
 <body>
 <header><h1 class="mainHeadText">NodeJS E-Commerce Site</h1><h2 class="secondHeadText">Mikhail Cedras</h2></header>
-<a href="/cart"><img class="shoppingCartIcon" src="shoppingcart.png" alt="My Cart"></a>
+<% if (isAuthenticated) { %>
+<a href = "/cart"> 
+   <img src = "/shoppingcart.png" class="shoppingCartIcon" alt="My Cart"/> 
+   <% } %> 
+</a>
 <main>

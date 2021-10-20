@@ -8,7 +8,8 @@ exports.getFruits = (req, res, next) => {
      res.render('display', {
        fruits: fruits,
        pageTitle: 'Fruits | Node',
-       admin: false
+       admin: false,
+       isAuthenticated: req.session.isLoggedIn
      });
    })
    .catch(err => {
@@ -22,7 +23,9 @@ exports.getFruits = (req, res, next) => {
     .then(fruit => {
      res.render('details', {
       pageTitle: 'Details | Node',
-      detailedFruit: fruit
+       detailedFruit: fruit,
+       isAuthenticated: req.session.isLoggedIn
+
      })
    })
    .catch(err => {
@@ -36,6 +39,8 @@ exports.getFruits = (req, res, next) => {
      res.render('home', {
        fruits: fruits,
        pageTitle: 'Home | Node',
+       isAuthenticated: req.session.isLoggedIn
+
      });
    })
    .catch(err => {
@@ -46,13 +51,13 @@ exports.getFruits = (req, res, next) => {
  exports.getCart = (req, res, next) => {
    req.user
    .populate('cart.items.fruitId')
-   //.execPopulate()
      .then(user => {
       const fruits = user.cart.items;
       res.render('cart', {
         path: '/cart',
         pageTitle: 'Cart | Node',
-        fruits: fruits
+        fruits: fruits,
+        isAuthenticated: req.session.isLoggedIn
       });
      })
      .catch(err => console.log(err));
@@ -63,8 +68,7 @@ exports.getFruits = (req, res, next) => {
    const fruitId = req.body.fruitId;
    Fruit.findById(fruitId)
     .then(fruit => {
-      req.user.addToCart(fruit);
-      
+      return req.user.addToCart(fruit); 
     })
     .then(result => {
       res.redirect('/cart');
@@ -88,7 +92,9 @@ exports.getOrders = (req, res, next) => {
     .then(orders => {
       res.render('order', {
         pageTitle: 'Order | Node',
-        orders: orders
+        orders: orders,
+        isAuthenticated: req.session.isLoggedIn
+
       });
     })
     .catch(err => console.log(err));

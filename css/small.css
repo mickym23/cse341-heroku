@@ -52,6 +52,11 @@ nav {
    background-color: #3a3a3a;
 }
 
+.nav-bar {
+   display: flex;
+   flex-direction: column;
+}
+
 .navUL {
    list-style-type: none;
    margin: 0;

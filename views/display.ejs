@@ -24,10 +24,12 @@
           </form>
          <% } else { %>
           <a class="btn editButton" href="/display/<%= fruit._id %>">Details</a>
+          <% if (isAuthenticated) { %> 
           <form action="/cart" method="post"> %>
           <button class="btn" type="submit">Add to Cart</button>
           <input type="hidden" name="fruitId" value="<%= fruit._id %>">
           </form>
+          <% } %> 
           <% } %> 
      
       </div>

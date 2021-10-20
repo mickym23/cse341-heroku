@@ -3,7 +3,9 @@ const Fruit = require('../models/fruits');
 exports.getAddProduct = (req, res, next) => {
   res.render('edit-product', {
     pageTitle: 'Add Product | Node',
-    editing: false
+    editing: false,
+    isAuthenticated: req.session.isLoggedIn
+
   });
 };
 
@@ -19,7 +21,7 @@ exports.postAddProduct = (req, res, next) => {
     description: description,
     origin: origin, 
     price: price,
-    userId: req.user._id
+    userId: req.user
   });
   fruit
     .save()
@@ -29,7 +31,7 @@ exports.postAddProduct = (req, res, next) => {
     })
     .catch(err => {
       console.log(err);
-    })
+    }) 
 };
 
 exports.getEditProduct = (req, res, next) => {
@@ -47,8 +49,10 @@ exports.getEditProduct = (req, res, next) => {
   res.render('edit-product', {
     pageTitle: 'Edit Product | Node',
     editing: editMode,
-    fruit: fruit
-  });  
+    fruit: fruit,
+    isAuthenticated: req.session.isLoggedIn
+
+  }); 
 })
 };
 
@@ -67,6 +71,8 @@ exports.postUpdatedProduct = (req, res, next) => {
     fruit.description = description;
     fruit.origin = origin;
     fruit.price = price;
+    fruit.userId = req.user._id
+   // fruit.userId = req.user;
     return fruit.save()
   })
   .then(result => {
@@ -85,7 +91,9 @@ exports.getAdminFruits = (req, res, next) => {
     res.render('display', {
       fruits: fruits,
       pageTitle: 'Fruits Admin | Node',
-      admin: true
+      admin: true,
+      isAuthenticated: req.session.isLoggedIn
+
     });
   })
   .catch(err => console.log(err));
@@ -97,6 +105,8 @@ exports.getDelFruits = (req, res, next) => {
     res.render('del-product', {
       fruits: fruits,
       pageTitle: 'Delete Fruits | Node',
+      isAuthenticated: req.session.isLoggedIn
+
     });
   });
 };
