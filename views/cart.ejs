@@ -13,6 +13,7 @@
                         <p><%=f.fruitId.name %></p>
                         <p>Amount: <%=f.quantity%></p>
                         <form action="/cart-del-item" method="post">
+                            <input type="hidden" value="<%= csrfToken %>" name="_csrf">
                             <button class="cartDeleteButton" type="submit">Delete</button>
                             <input type="hidden" name="fruitId" value="<%= f.fruitId._id %>">
                         </form>
@@ -20,6 +21,7 @@
                 <% }); %>
             </ul>
             <form action="/post-order" method="POST">
+                <input type="hidden" value="<%= csrfToken %>" name="_csrf">
                 <button type="submit" class="orderButton">Order Now!</button>
             </form>
         <%  } else { %>

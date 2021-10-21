@@ -4,14 +4,12 @@ const Order = require('../models/order');
 exports.getFruits = (req, res, next) => {
    Fruit.find()
    .then(fruits => {
-     console.log(fruits);
      res.render('display', {
        fruits: fruits,
        pageTitle: 'Fruits | Node',
-       admin: false,
-       isAuthenticated: req.session.isLoggedIn
+       admin: false
      });
-   })
+   }) 
    .catch(err => {
      console.log(err);
    });
@@ -23,8 +21,7 @@ exports.getFruits = (req, res, next) => {
     .then(fruit => {
      res.render('details', {
       pageTitle: 'Details | Node',
-       detailedFruit: fruit,
-       isAuthenticated: req.session.isLoggedIn
+       detailedFruit: fruit
 
      })
    })
@@ -38,8 +35,7 @@ exports.getFruits = (req, res, next) => {
    .then(fruits => {
      res.render('home', {
        fruits: fruits,
-       pageTitle: 'Home | Node',
-       isAuthenticated: req.session.isLoggedIn
+       pageTitle: 'Home | Node'
 
      });
    })
@@ -56,8 +52,7 @@ exports.getFruits = (req, res, next) => {
       res.render('cart', {
         path: '/cart',
         pageTitle: 'Cart | Node',
-        fruits: fruits,
-        isAuthenticated: req.session.isLoggedIn
+        fruits: fruits
       });
      })
      .catch(err => console.log(err));
@@ -92,8 +87,7 @@ exports.getOrders = (req, res, next) => {
     .then(orders => {
       res.render('order', {
         pageTitle: 'Order | Node',
-        orders: orders,
-        isAuthenticated: req.session.isLoggedIn
+        orders: orders
 
       });
     })
@@ -114,12 +108,12 @@ exports.postOrder = (req, res, next) => {
 
       const order = new Order({
         user: {
-          name: req.user.name,
+          email: req.user.email,
           userId: req.user
         },
         fruits: fruits
       });
-      order.save();
+      return order.save();
     })
     .then(result => {
       return req.user.clearCart();

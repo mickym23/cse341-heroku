@@ -1,11 +1,15 @@
 <%- include('includes/head.ejs') %>
 <%- include('includes/nav.ejs') %>
-   <h3 class="add-productHeading">Add Fruit</h3>
+   <h3 class="add-productHeading">Login Form</h3>
+   <% if (errorMessage) { %> 
+   <div><%= errorMessage %></div>
+   <% } %> 
    <div class="addForm">
      <form class="addProdForm" action="/login" method="POST">
+      <input type="hidden" value="<%= csrfToken %>" name="_csrf">
       <label for"email">Email: </label>
       <input type="email" name="email"><br>
-      <label for"passwd">Image URL: </label>
+      <label for"passwd">Password: </label>
       <input type="password" name="passwd"/><br>
       <br><button type="submit">Login</button>
   </form>

@@ -3,8 +3,7 @@ const Fruit = require('../models/fruits');
 exports.getAddProduct = (req, res, next) => {
   res.render('edit-product', {
     pageTitle: 'Add Product | Node',
-    editing: false,
-    isAuthenticated: req.session.isLoggedIn
+    editing: false
 
   });
 };
@@ -49,8 +48,7 @@ exports.getEditProduct = (req, res, next) => {
   res.render('edit-product', {
     pageTitle: 'Edit Product | Node',
     editing: editMode,
-    fruit: fruit,
-    isAuthenticated: req.session.isLoggedIn
+    fruit: fruit
 
   }); 
 })
@@ -87,12 +85,10 @@ exports.getAdminFruits = (req, res, next) => {
   // .select('name price -_id')
   // .populate('userId', 'name')
   .then(fruits => {
-    console.log(fruits);
     res.render('display', {
       fruits: fruits,
       pageTitle: 'Fruits Admin | Node',
       admin: true,
-      isAuthenticated: req.session.isLoggedIn
 
     });
   })
@@ -105,7 +101,6 @@ exports.getDelFruits = (req, res, next) => {
     res.render('del-product', {
       fruits: fruits,
       pageTitle: 'Delete Fruits | Node',
-      isAuthenticated: req.session.isLoggedIn
 
     });
   });

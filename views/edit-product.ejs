@@ -1,8 +1,9 @@
 <%- include('includes/head.ejs') %>
 <%- include('includes/nav.ejs') %>
-   <h3 class="add-productHeading">Add Fruit</h3>
+   <h3 class="add-productHeading"><% if (editing) { %>Update Fruit<%} else { %>Add Fruit<%} %></h3>
    <div class="addForm">
      <form class="addProdForm" action="/<% if (editing) { %>edit-item<%} else { %>add-item<%} %>" method="POST">
+      <input type="hidden" value="<%= csrfToken %>" name="_csrf">
       <label for"name">Fruit Name: </label>
       <input type="text" name="name" value="<% if (editing) { %><%= fruit.name%><% } %>"><br>
       <label for"imageUrl">Image URL: </label>
