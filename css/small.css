@@ -68,8 +68,11 @@ nav ul li {
    display: inline;
    
 }
+nav ul li {
+   text-align: center;
+}
 
-nav ul li a, nav ul li a:visited {
+nav ul li a, nav ul li a:visited, nav ul li form button {
    font-family: "Righteous", Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;   color: white;
    display: block;
    color: #172a3a;

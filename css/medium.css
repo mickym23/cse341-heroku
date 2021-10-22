@@ -33,7 +33,7 @@ nav {
    margin-right: 0px;
 }
 
-.navUL a, .navUL a:visited{
+.navUL a, .navUL a:visited, .navUL li form button{
    font-family: "Righteous", Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
    text-decoration: none;
    color: #172a3a;

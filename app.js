@@ -17,7 +17,7 @@ dotenv.config();
 const MONGODB_URI = 'mongodb+srv://mikhail-node:Porkchops1@cluster0.mszib.mongodb.net/shop?authSource=admin&replicaSet=atlas-vg9xcm-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true';
 // MongoDB Connection string and Config Var
 const MONGODB_URL = process.env.MONGODB_URL || MONGODB_URI;
-
+  
 // Create Express server
 const app = express();
 const store = new MongoDBStore({
