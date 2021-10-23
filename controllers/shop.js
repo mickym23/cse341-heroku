@@ -11,7 +11,9 @@ exports.getFruits = (req, res, next) => {
      });
    }) 
    .catch(err => {
-     console.log(err);
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
    });
  };
  
@@ -26,7 +28,9 @@ exports.getFruits = (req, res, next) => {
      })
    })
    .catch(err => {
-     console.log(err);
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
    })
  };
  
@@ -67,7 +71,11 @@ exports.getFruits = (req, res, next) => {
     })
     .then(result => {
       res.redirect('/cart');
-    });
+    }).catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    })
  };
 
  exports.postCartDelete = (req, res, next) => {
@@ -77,7 +85,11 @@ exports.getFruits = (req, res, next) => {
     .then(result => {
       res.redirect('/cart');
     }) 
-    .catch(err => console.log(err));
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
  };
 
 exports.getOrders = (req, res, next) => {
@@ -121,13 +133,9 @@ exports.postOrder = (req, res, next) => {
     .then(result => {
       res.redirect('/orders');
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
 };
-
-//  exports.getCheckout = (req, res, next) => {
-//    res.render('shop/checkout', {
-//      path: '/checkout',
-//      pageTitle: 'Checkout'
-//    });
-//  };
- 

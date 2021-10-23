@@ -50,22 +50,32 @@ app.use(session({
    store: store
 }));
 
-app.use(csrfProtection);
-
-app.use((req, res, next) => {
-   User.findById(req.session.user)
-      .then(user => {
-         req.user = user;
-         next();
-      })
-      .catch(err => console.log(err));
-});
-
 app.use((req, res, next) => {
    res.locals.isAuthenticated = req.session.isLoggedIn;
    res.locals.csrfToken = req.csrfToken();
    next();
 })
+
+app.use(csrfProtection);
+
+app.use((req, res, next) => {
+   if (!req, session.user) {
+      return next();
+   }
+   User.findById(req.session.user)
+      .then(user => {
+         if (!user) {
+            return next();
+         }
+         req.user = user;
+         next();
+      })
+      .catch(err => {
+         next(new Error(err));
+      });
+});
+
+
 
 const options = {
    useUnifiedTopology: true,
@@ -90,6 +100,16 @@ app.use(authRoutes);
 // Error 404
 const errorController = require('./controllers/error');
 app.use(errorController.get404);
+
+app.get('/500', errorController.get500);
+
+app.use((error, req, res, next) => {
+   res.status(500).render('500', 
+   { 
+      pageTitle: 'Error Occurred',
+      isAuthenticated: req.session.isLoggedIn
+   });
+})
 
 // Connect to db via Mongoose
 mongoose.connect(

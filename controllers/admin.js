@@ -1,10 +1,13 @@
 const Fruit = require('../models/fruits');
+const { validationResult } = require('express-validator/check')
 
 exports.getAddProduct = (req, res, next) => {
   res.render('edit-product', {
     pageTitle: 'Add Product | Node',
-    editing: false
-
+    editing: false,
+    hasError: false,
+    errorMessage: null,
+    validationErrors: []
   });
 };
 
@@ -14,6 +17,27 @@ exports.postAddProduct = (req, res, next) => {
   const description = req.body.description;
   const origin = req.body.origin;
   const price = req.body.price;
+
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).render('edit-product', {
+      pageTitle: 'Add Product | Node',
+      editing: false,
+      hasError: true,
+      fruit: {
+        name: name,
+        imageUrl: imageUrl,
+        description: description,
+        origin: origin,
+        price: price
+      },
+      errorMessage: errors.array()[0].msg,
+      validationErrors: errors.array()
+  
+    }); 
+  }
+
   const fruit = new Fruit({
     name: name,
     imageUrl: imageUrl, 
@@ -29,7 +53,28 @@ exports.postAddProduct = (req, res, next) => {
       res.redirect('/admin-products')
     })
     .catch(err => {
-      console.log(err);
+
+      // res.redirect('/500');
+      // if (!errors.isEmpty()) {
+      //   return res.status(500).render('edit-product', {
+      //     pageTitle: 'Add Product | Node',
+      //     editing: false,
+      //     hasError: true,
+      //     fruit: {
+      //       name: name,
+      //       imageUrl: imageUrl,
+      //       description: description,
+      //       origin: origin,
+      //       price: price
+      //     },
+      //     errorMessage: 'Database operation failed. Please try again.',
+      //     validationErrors: []
+      
+      //   }); 
+      // }
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     }) 
 };
 
@@ -48,8 +93,10 @@ exports.getEditProduct = (req, res, next) => {
   res.render('edit-product', {
     pageTitle: 'Edit Product | Node',
     editing: editMode,
-    fruit: fruit
-
+    fruit: fruit,
+    hasError: false,
+    errorMessage: null,
+    validationErrors: []
   }); 
 })
 };
@@ -60,10 +107,34 @@ exports.postUpdatedProduct = (req, res, next) => {
   const imageUrl = req.body.imageUrl;
   const description = req.body.description;
   const origin = req.body.origin;
-  const price  = req.body.price;
+  const price = req.body.price;
+  
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).render('edit-product', {
+      pageTitle: 'Edit Product | Node',
+      editing: true,
+      hasError: true,
+      fruit: {
+        name: name,
+        imageUrl: imageUrl,
+        description: description,
+        origin: origin,
+        price: price,
+        _id: fruitId
+      },
+      errorMessage: errors.array()[0].msg,
+      validationErrors: errors.array()
+  
+    }); 
+  }
 
   Fruit.findById(fruitId)
-  .then(fruit => {
+    .then(fruit => {
+      if (fruit.userId.toString() !== req.user._id.toString()) {
+      return res.redirect('/');
+    }
     fruit.name = name;
     fruit.imageUrl = imageUrl;
     fruit.description = description;
@@ -71,17 +142,22 @@ exports.postUpdatedProduct = (req, res, next) => {
     fruit.price = price;
     fruit.userId = req.user._id
    // fruit.userId = req.user;
-    return fruit.save()
+    return fruit.save().then(result => {
+      console.log('Product is Updated.');
+      res.redirect('/admin-products');
+    })
   })
-  .then(result => {
-    console.log('Product is Updated.');
-    res.redirect('/admin-products');
-  })
-  .catch(err => console.log(err));
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+  });
 }
 
 exports.getAdminFruits = (req, res, next) => {
-  Fruit.find()
+  Fruit.find({
+    userId: req.user._id
+  })
   // .select('name price -_id')
   // .populate('userId', 'name')
   .then(fruits => {
@@ -109,12 +185,17 @@ exports.getDelFruits = (req, res, next) => {
 
 exports.postDeleteProduct = (req, res, next) => {
   const fruitId = req.body.fruitId;
-  Fruit.findByIdAndRemove(fruitId)
+  Fruit.deleteOne({
+    _id: fruitId,
+    userid: req.user._id
+  })
   .then(() => {
     console.log('Controller: Product Deleted.');
     res.redirect('/admin-products');
   })
   .catch(err => {
-    console.log(err);
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
   })
 }

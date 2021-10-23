@@ -219,6 +219,12 @@ nav ul li a, nav ul li a:visited, nav ul li form button {
    width: 40%;
 }
 
+.addProdForm input.invalid,
+.addProdForm textarea.invalid {
+   border-color: red;
+   border-width: 2px;
+}
+
 .addProdForm button, .delProdForm button {
    font-family: inherit;
    width: 20%;

@@ -8,11 +8,11 @@
      <form class="addProdForm" action="/sign-up" method="POST">
       <input type="hidden" value="<%= csrfToken %>" name="_csrf">
       <label for"email">Email: </label>
-      <input type="email" name="email"><br>
+      <input class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : ''%>" type="email" name="email" value="<%= oldInput.email.trim() %> "><br>
       <label for"passwd">Password: </label>
-      <input type="password" name="passwd"/><br>
+      <input class="<%= validationErrors.find(e => e.param === 'passwd') ? 'invalid' : ''%>" type="password" name="passwd" value="<%= oldInput.password.trim()%>"><br>
       <label for"confirmPasswd">Confirm Password: </label>
-      <input type="password" name="confirmPasswd"/><br>
+      <input class="<%= validationErrors.find(e => e.param === 'confirmPasswd') ? 'invalid' : ''%>" type="password" name="confirmPasswd" value="<%= oldInput.confirmPassword.trim()%>"><br>
       <br><button type="submit">Sign Up</button>
   </form>
   </div>
