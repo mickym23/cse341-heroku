@@ -9,12 +9,12 @@ const authController = require('../controllers/auth');
 router.get('/login', authController.getLogin);
 
 router.post('/login',
-   check('email')
-   .isEmail()
+   body('email')
+      .isEmail()
       .withMessage('Please enter a valid email.'),
    body('passwd', 'Please enter a password with at least 5 characters.')
       .isLength({ min: 5 })
-         .trim(),
+      .trim(),
    authController.postLogin);
 
 router.post('/logout', authController.postLogout);
@@ -36,7 +36,7 @@ router.post('/sign-up',
    body('passwd', 'Please enter a password with at least 5 characters.')
       .isLength({ min: 5 })
       .trim(),
-   check('confirmPasswd')
+   body('confirmPasswd')
       .custom((value, { req }) => {
          if (value !== req.body.passwd) {
             throw new Error('Passwords have to match!');

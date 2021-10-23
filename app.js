@@ -26,8 +26,6 @@ const store = new MongoDBStore({
 });
 
 const csrfProtection = csrf();
-app.use(flash());
-
 
 // Using EJS template
 app.set('view engine', 'ejs');
@@ -50,8 +48,8 @@ app.use(session({
    store: store
 }));
 
-
 app.use(csrfProtection);
+app.use(flash());
 
 
 app.use((req, res, next) => {
@@ -64,8 +62,9 @@ app.use((req, res, next) => {
    if (!req.session.user) {
       return next();
    }
-   User.findById(req.session.user)
+   User.findById(req.session.user._id)
       .then(user => {
+         console.log(user)
          if (!user) {
             return next();
          }
@@ -115,7 +114,7 @@ app.use((error, req, res, next) => {
 
 // Connect to db via Mongoose
 mongoose.connect(
-   MONGODB_URI, options
+   MONGODB_URL, options
 )
 .then(result => {
    // Connected to Port
