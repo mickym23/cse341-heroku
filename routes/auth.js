@@ -11,8 +11,7 @@ router.get('/login', authController.getLogin);
 router.post('/login',
    check('email')
    .isEmail()
-      .withMessage('Please enter a valid email.')
-   .normalizeEmail(),
+      .withMessage('Please enter a valid email.'),
    body('passwd', 'Please enter a password with at least 5 characters.')
       .isLength({ min: 5 })
          .trim(),
@@ -33,8 +32,7 @@ router.post('/sign-up',
                   return Promise.reject('Email exists already.');
                }
             })
-      })
-      .normalizeEmail(),
+      }),
    body('passwd', 'Please enter a password with at least 5 characters.')
       .isLength({ min: 5 })
       .trim(),

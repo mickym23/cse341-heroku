@@ -179,46 +179,43 @@ exports.getReset = (req, res, next) => {
 
 exports.postReset = (req, res, next) => {
    crypto.randomBytes(32, (err, buffer) => {
-      if (err) {
-         console.log(err);
-         return res.redirect('/reset');
-      }
+     if (err) {
+       console.log(err);
+       return res.redirect('/reset');
+     }
+     const token = buffer.toString('hex');
+     User.findOne({ email: req.body.email })
+       .then(user => {
+         if (!user) {
+           req.flash('error', 'No account with that email found.');
+           return res.redirect('/reset');
+         }
+         user.resetToken = token;
+         user.resetTokenExpiration = Date.now() + 3600000;
+         return user.save();
+       })
+        .then(result => {
+           res.redirect('/');
+           const msg = {
+              to: req.body.email,
+              from: 'illuminationofdemacia@gmail.com',
+              subject: 'Password Reset',
+              html: `
+               <p>You have requested a password reset</p>
+               <p>Click this <a href="https://cse341-mikhail.herokuapp.com/reset/${token}">link</a> to set a new password:</p> 
+            `
+           };
+           sendgridKey.send(msg)
+        })
+       .catch(err => {
+         const error = new Error(err);
+         error.httpStatusCode = 500;
+         return next(error);
+       });
+   });
+ };
 
-      const token = buffer.toString('hex');
-      User.findOne({
-         email: req.body.email
-      })
-         .then(user => {
-            if (!user) {
-               req.flash('error', 'No account with that email found.')
-               return res.redirect('/reset');
-            }
-            user.resetToken = token;
-            user.resetTokenExpiration = Date.now() + 3600000;
-            return user.save();
-         }).then(result => {
-            res.redirect('/');
-            const msg = {
-               to: req.body.email,
-               from: 'illuminationofdemacia@gmail.com',
-               subject: 'Password Reset',
-               html: `
-                  <p>You have requested a password reset</p>
-                  <p>Click this <a href="https://cse341-mikhail.herokuapp.com/reset/${token}">link</a> to set a new password:</p> 
-               `
-            };
-            sendgridKey.send(msg).then(() => console.log('Email sent')).catch(err => {
-               console.log(err);
-            })
 
-
-         }).catch(err => { 
-            const error = new Error(err);
-            error.httpStatusCode = 500;
-            return next(error);
-      })
-   })
-}
 
 exports.getNewPassword = (req, res, next) => {
    const token = req.params.token;
