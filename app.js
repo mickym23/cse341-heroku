@@ -50,13 +50,15 @@ app.use(session({
    store: store
 }));
 
+
+app.use(csrfProtection);
+
+
 app.use((req, res, next) => {
    res.locals.isAuthenticated = req.session.isLoggedIn;
    res.locals.csrfToken = req.csrfToken();
    next();
 })
-
-app.use(csrfProtection);
 
 app.use((req, res, next) => {
    if (!req, session.user) {
