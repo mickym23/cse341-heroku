@@ -432,6 +432,13 @@ button.nav-link[type=submit] {
    color: darkblue;
 }
 
+/*****************
+   Status Codes Error Styles
+******************/
+.errorStatus {
+   padding: 2%;
+}
+
 /* Footer Styles */
 footer {
    text-align: center;
