@@ -1,7 +1,6 @@
 <%- include('includes/head.ejs'); %>
-<%- include('includes/nav.ejs'); %>
-
-   <h3 class="bookHeading">Fruits Display</h3>
+<main class="display-main">
+   <h3 class="displayHeading">Our Fruit Collection</h3>
 
    <br>
    <div class="cardSection">
@@ -17,20 +16,24 @@
    
          <div class="grid-container">
           <% if (admin) { %>
-          <a class="btn editButton" href="/edit-product/<%= fruit._id %>?edit=true">Edit</a>
-          <form action="/del-item" method="post">
+          <a class="editButton" href="/edit-product/<%= fruit._id %>?edit=true">Edit</a>
+          <form action="/del-item" method="post" clas=="displayForm">
             <input type="hidden" value="<%= csrfToken %>" name="_csrf">
-            <button type="submit" class="btn">Delete</button>
+            <button class="addToCartButton" type="submit">Delete</button>
             <input type="hidden" name="fruitId" value="<%= fruit._id %>">
           </form>
          <% } else { %>
-          <a class="btn editButton" href="/display/<%= fruit._id %>">Details</a>
+          <a class="editButton" href="/display/<%= fruit._id %>">Details</a>
           <% if (isAuthenticated) { %> 
-          <form action="/cart" method="post"> %>
+          <form action="/cart" method="post" class="displayForm"> %>
             <input type="hidden" value="<%= csrfToken %>" name="_csrf">
-          <button class="btn" type="submit">Add to Cart</button>
+          <button class="addToCartButton" type="submit">Add to Cart</button>
           <input type="hidden" name="fruitId" value="<%= fruit._id %>">
           </form>
+          <% } else { %> 
+            <form action="/login" method="get">
+            <button class="addToCartButton" type="submit">Add to Cart</button>
+            </form>
           <% } %> 
           <% } %> 
      

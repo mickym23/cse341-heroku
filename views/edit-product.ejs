@@ -1,18 +1,17 @@
 <%- include('includes/head.ejs') %>
-<%- include('includes/nav.ejs') %>
-   <h3 class="add-productHeading"><% if (editing) { %>Update Fruit<%} else { %>Add Fruit<%} %></h3>
+   <h3 class="form-heading"><% if (editing) { %>Update Fruit<%} else { %>Add a Fruit<%} %></h3>
    <% if (errorMessage) { %> 
-    <div><%= errorMessage %></div>
+    <div class="errorMessage"><%= errorMessage %></div>
     <% } %>
-   <div class="addForm">
-     <form class="addProdForm" action="/<% if (editing || hasError) { %>edit-item<%} else { %>add-item<%} %>" method="POST">
+   <div class="form-div">
+     <form class="form-container" action="/<% if (editing) { %>edit-item<%} else { %>add-item<%} %>" method="POST">
       <input type="hidden" value="<%= csrfToken %>" name="_csrf">
       <label for"name">Fruit Name: </label>
       <input class="<%= validationErrors.find(e => e.param === 'name') ? 'invalid' : ''%>" type="text" name="name" value="<% if (editing || hasError) { %><%= fruit.name%><% } %>"><br>
       <label for"imageUrl">Image URL: </label>
-      <input class="<%= validationErrors.find(e => e.param === 'imageUrl') ? 'invalid' : ''%>" type="text" name="imageUrl" value="<% if (editing || hasError) { %><%= fruit.imageUrl%><% } %>"/><br>
+      <input class="<%= validationErrors.find(e => e.param === 'imageUrl') ? 'invalid' : ''%>" type="text" name="imageUrl" value="<% if (editing || hasError) { %><%= fruit.imageUrl%><% } %>"/><br><br>
       <label for"description">Fruit Description: </label>
-      <textarea class="<%= validationErrors.find(e => e.param === 'description') ? 'invalid' : ''%>" name="description" rows="1" cols="4"><% if (editing || hasError) { %><%=fruit.description%><% } %></textarea><br>
+      <textarea class="<%= validationErrors.find(e => e.param === 'description') ? 'invalid' : ''%>" rows="5" cols="40" name="description" rows="1" cols="4"><% if (editing || hasError) { %><%=fruit.description%><% } %></textarea><br>
       <label for"origin">Country of Origin: </label>
       <input class="<%= validationErrors.find(e => e.param === 'origin') ? 'invalid' : ''%>" type="text" name="origin" value="<% if (editing || hasError) { %><%= fruit.origin%><% } %>"><br>
       <label for"price">Fruit Price: </label>

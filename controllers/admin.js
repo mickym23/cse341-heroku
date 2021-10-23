@@ -44,8 +44,10 @@ exports.postAddProduct = (req, res, next) => {
     description: description,
     origin: origin, 
     price: price,
-    userId: req.user
+    userId: req.user._id
   });
+
+  console.log(fruit);
   fruit
     .save()
     .then(result => {
@@ -82,7 +84,7 @@ exports.getEditProduct = (req, res, next) => {
   const editMode = req.query.edit;
 
   if(!editMode) {
-    res.redirect('/');
+    return res.redirect('/');
   }
   const fruitId = req.params.fruitId;
   Fruit.findById(fruitId)
@@ -98,7 +100,13 @@ exports.getEditProduct = (req, res, next) => {
     errorMessage: null,
     validationErrors: []
   }); 
-})
+  })
+    .catch(err => {
+      console.log(err);
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
+  });
 };
 
 exports.postUpdatedProduct = (req, res, next) => {
@@ -108,7 +116,7 @@ exports.postUpdatedProduct = (req, res, next) => {
   const description = req.body.description;
   const origin = req.body.origin;
   const price = req.body.price;
-  
+  console.log(origin);
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -126,7 +134,6 @@ exports.postUpdatedProduct = (req, res, next) => {
       },
       errorMessage: errors.array()[0].msg,
       validationErrors: errors.array()
-  
     }); 
   }
 
@@ -140,7 +147,7 @@ exports.postUpdatedProduct = (req, res, next) => {
     fruit.description = description;
     fruit.origin = origin;
     fruit.price = price;
-    fruit.userId = req.user._id
+   // fruit.userId = fruitId
    // fruit.userId = req.user;
     return fruit.save().then(result => {
       console.log('Product is Updated.');
@@ -148,6 +155,7 @@ exports.postUpdatedProduct = (req, res, next) => {
     })
   })
     .catch(err => {
+      console.log(err);
       const error = new Error(err);
       error.httpStatusCode = 500;
       return next(error);

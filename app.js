@@ -33,6 +33,7 @@ app.set('view engine', 'ejs');
 // BodyParser and static paths to folders 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'css')));
+app.use(express.static(path.join(__dirname, 'js')));
 app.use(express.static(path.join(__dirname, 'img')));
 app.use(express.static(path.join(__dirname, 'img/fruit')));
 

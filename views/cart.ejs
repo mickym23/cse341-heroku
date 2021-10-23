@@ -2,10 +2,8 @@
 </head>
 
 <body>
-    <%- include('includes/nav.ejs') %>
     <main class="cart-main">
-        <h1>My Cart</h1>
-        <a class="cartOrderLink" href="/orders">View Previous Orders</a>
+        <h1>My Cart</h1>  <br>
         <% if (fruits.length > 0) { %> 
             <ul class="order-items-grid">
                 <% fruits.forEach(f => { %>
@@ -20,7 +18,7 @@
                     </li>
                 <% }); %>
             </ul>
-            <form action="/post-order" method="POST">
+            <form class="form-container orderButton-container" action="/post-order" method="POST">
                 <input type="hidden" value="<%= csrfToken %>" name="_csrf">
                 <button type="submit" class="orderButton">Order Now!</button>
             </form>

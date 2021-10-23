@@ -39,7 +39,8 @@ router.post('/add-item',
       .isLength({ min: 3, max: 400 })
       .trim(),
       body('origin')
-      .isString()
+         .isString()
+         .isLength({ min: 3 })
       .trim(),
    isAuth, adminController.postAddProduct);
 
@@ -58,7 +59,8 @@ router.post('/edit-item',
       .isLength({ min: 3, max: 400 })
       .trim(),
       body('origin')
-      .isString()
+         .isString()
+         .isLength({ min: 3 })
       .trim(),
    isAuth, adminController.postUpdatedProduct);
 

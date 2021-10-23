@@ -12,10 +12,37 @@
 
 </head>
 <body>
-<header><h1 class="mainHeadText">NodeJS E-Commerce Site</h1><h2 class="secondHeadText">Mikhail Cedras</h2></header>
-<% if (isAuthenticated) { %>
-<a href = "/cart"> 
-   <img src = "/shoppingcart.png" class="shoppingCartIcon" alt="My Cart"/> 
-   <% } %> 
-</a>
-<main>
+<header class="nav-header">
+   <nav class="navbar">
+      <a href="/" class="nav-logo">Fruits | Node.js</a>
+      <ul class="nav-menu">   
+            <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="/display" class="nav-link">All Fruits</a></li>
+            <% if (!isAuthenticated) { %>
+               <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
+               <li class="nav-item"><a href="/sign-up" class="nav-link">Sign Up</a></li>
+               <% } %> 
+         <% if (isAuthenticated) { %> 
+            <li class="nav-item"><a href="/add-product" class="nav-link">Add Fruit</a></li>
+            <li class="nav-item"><a href="/admin-products" class="nav-link">Fruits Admin</a></li>
+         <% } %> 
+           
+            <% if(isAuthenticated) { %> 
+               <li  class="nav-item"><a href ="/cart" class="nav-link">My Cart</a></li>
+               <li class="nav-item"><a class="nav-link" href="/orders">Orders</a></li>
+
+            <li class="nav-item">
+               <form action="/logout" method="post" >
+                  <input type="hidden" value="<%= csrfToken %>" name="_csrf">
+                  <button type="submit" class="nav-link">Logout</button>
+               </form>
+            </li>
+            <% } %> 
+      </ul>
+      <div class="hamburger">
+         <span class="bar"></span>
+         <span class="bar"></span>
+         <span class="bar"></span>
+     </div>
+   </nav>
+</header>

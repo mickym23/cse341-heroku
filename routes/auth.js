@@ -11,6 +11,9 @@ router.get('/login', authController.getLogin);
 router.post('/login',
    body('email')
       .isEmail()
+      .normalizeEmail({
+         gmail_remove_dots: false
+      })
       .withMessage('Please enter a valid email.'),
    body('passwd', 'Please enter a password with at least 5 characters.')
       .isLength({ min: 5 })
@@ -24,6 +27,9 @@ router.get('/sign-up', authController.getSignUp);
 router.post('/sign-up',
    check('email')
       .isEmail()
+      .normalizeEmail({
+         gmail_remove_dots: false
+      })
       .withMessage('Please enter a valid email.')
       .custom((value, { req }) => {
          return User.findOne({ email: value })
